@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ThinkEMR.Core\ThinkEMR_Care.Core.csproj" />
   </ItemGroup>
 
