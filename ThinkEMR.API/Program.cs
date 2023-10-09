@@ -7,10 +7,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-Development
-//Start Cinfig.
-//Start Here
-master
 
 var app = builder.Build();
 
