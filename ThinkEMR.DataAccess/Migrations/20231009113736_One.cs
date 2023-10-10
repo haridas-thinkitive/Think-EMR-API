@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ThinkEMR_Care.Core.Migrations
+namespace ThinkEMR_Care.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class One : Migration

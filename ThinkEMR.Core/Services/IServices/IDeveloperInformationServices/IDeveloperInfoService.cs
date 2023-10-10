@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ThinkEMR_Care.DataAccess.Models;
 
-namespace ThinkEMR_Care.Core.Interface.DevelopersMain
+namespace ThinkEMR_Care.Core.Services.IServices.IDeveloperInformationServices
 {
-    public interface IDevelopers
+    public interface IDeveloperInfoService
     {
-        Task<List<Collaborator>> getAllCollaborators();
-
+        Task<List<Collaborator>> GetAllDeveloper();
     }
 }

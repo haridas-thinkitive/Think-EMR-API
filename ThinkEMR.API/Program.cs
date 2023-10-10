@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using ThinkEMR_Care.Core.Data;
-using ThinkEMR_Care.Core.Interface.DevelopersMain;
-using ThinkEMR_Care.Core.Services.DeveloperServices;
+using ThinkEMR_Care.Core.Services.IServices.IDeveloperInformationServices;
+using ThinkEMR_Care.Core.Services.Services.DeveloperInformationServices;
+using ThinkEMR_Care.DataAccess.Data;
+using ThinkEMR_Care.DataAccess.Repository.IRepository.IDeveloperDetailsRepository;
+using ThinkEMR_Care.DataAccess.Repository.RepositoryServices.DeveloperDetailsRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,14 +13,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IDevelopers, AllDeveloperService>();
+
+// Add Services Repository as well as Interface and service Layer
+builder.Services.AddScoped<IDeveloperDetailsRepository,DeveloperDetailsRepository>();
+
+builder.Services.AddScoped<IDeveloperInfoService, DeveloperInfoServices>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

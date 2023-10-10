@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ThinkEMR_Care.DataAccess.Models;
 
-namespace ThinkEMR_Care.Core.Data
+namespace ThinkEMR_Care.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {
