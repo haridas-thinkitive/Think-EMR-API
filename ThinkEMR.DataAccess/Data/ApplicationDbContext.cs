@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,7 @@ namespace ThinkEMR_Care.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         {
 
@@ -53,6 +54,5 @@ namespace ThinkEMR_Care.DataAccess.Data
         public DbSet<ProviderType> ProviderTypes { get; set; }
         public DbSet<ProviderWorkLocation> ProviderWorkLocations { get; set; }
         public DbSet<Speciality> Speciality { get; set; }
-        
     }
 }

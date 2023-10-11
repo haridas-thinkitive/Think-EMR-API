@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using ThinkEMR_Care.Core.Services;
 using ThinkEMR_Care.Core.Services.Interface;
 using ThinkEMR_Care.DataAccess;
-using ThinkEMR_Care.DataAccess.Data;
 using ThinkEMR_Care.DataAccess.Repository.ProviderRepository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,15 +14,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
+// Add Services Repository as well as Interface and service Layer
+
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
