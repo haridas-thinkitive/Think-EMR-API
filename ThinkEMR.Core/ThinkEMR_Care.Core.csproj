@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\DeveloperServices\**" />
+    <Compile Remove="Services\Interface\DevelopersMain\**" />
+    <EmbeddedResource Remove="Services\DeveloperServices\**" />
+    <EmbeddedResource Remove="Services\Interface\DevelopersMain\**" />
+    <None Remove="Services\DeveloperServices\**" />
+    <None Remove="Services\Interface\DevelopersMain\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Constraint\" />
     <Folder Include="Extensions\" />
     <Folder Include="Filters\" />
