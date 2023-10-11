@@ -26,7 +26,7 @@ namespace ThinkEMR_Care.DataAccess.Models.ProviderGroup
         public string EmailId { get; set; }
         [Required]
         public string ContactNumber { get; set; }
-        public bool Status { get; set; }
+        public bool IsActive { get; set; }
     }
 
 }

@@ -10,10 +10,10 @@ using ThinkEMR_Care.DataAccess.Repository.ProviderRepository;
 
 namespace ThinkEMR_Care.Core.Services
 {
-    public class ProviderService : IProviderService
+    public class ProvidersService : IProvidersService
     {
-        private readonly IProviderRepository _providerRepository;
-        public ProviderService(IProviderRepository providerRepository)
+        private readonly IProvidersRepository _providerRepository;
+        public ProvidersService(IProvidersRepository providerRepository)
         {
             _providerRepository = providerRepository;
         }

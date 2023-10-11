@@ -27,11 +27,11 @@ namespace ThinkEMR_Care.DataAccess.Data
         {
             builder.Entity<ProviderType>().HasData
                 (
-                new ProviderType() { ProviderTypeName = "MD"},
-                new ProviderType() { ProviderTypeName = "PA"},
-                new ProviderType() { ProviderTypeName = "PSYD"},
-                new ProviderType() { ProviderTypeName = "LCSW"},
-                new ProviderType() { ProviderTypeName = "NP"}
+               new ProviderType() { ProviderTypeId = 1, ProviderTypeName = "MD" },
+                new ProviderType() { ProviderTypeId = 2, ProviderTypeName = "PA" },
+                new ProviderType() { ProviderTypeId = 3, ProviderTypeName = "PSYD" },
+                new ProviderType() { ProviderTypeId = 4, ProviderTypeName = "LCSW" },
+                new ProviderType() { ProviderTypeId = 5, ProviderTypeName = "NP" }
                  );
         }
 
@@ -52,7 +52,7 @@ namespace ThinkEMR_Care.DataAccess.Data
         public DbSet<ProviderSpokenLanguage> ProviderSpokenLanguages { get; set; }
         public DbSet<ProviderType> ProviderTypes { get; set; }
         public DbSet<ProviderWorkLocation> ProviderWorkLocations { get; set; }
-        public DbSet<Speciality> Speciality { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
         
     }
 }

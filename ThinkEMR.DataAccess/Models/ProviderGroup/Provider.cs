@@ -86,6 +86,6 @@ namespace ThinkEMR_Care.DataAccess.Models.ProviderGroup
         public string ProviderBio { get; set; }
         public string ExpertiseIn { get; set; }
         public string Education_WorkExperience { get; set; }
-        public bool Status { get; set; }
+        public bool IsActive { get; set; }
     }
 }

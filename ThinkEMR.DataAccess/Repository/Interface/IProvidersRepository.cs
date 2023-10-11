@@ -7,7 +7,7 @@ using ThinkEMR_Care.DataAccess.Models.ProviderGroup;
 
 namespace ThinkEMR_Care.DataAccess.Repository.ProviderRepository
 {
-    public interface IProviderRepository
+    public interface IProvidersRepository
     {
         public Task CreateProviderAsync(Provider provider);
         public Task<IEnumerable<Provider>> GetAllProviderAsync();

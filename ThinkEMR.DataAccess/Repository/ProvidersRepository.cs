@@ -10,11 +10,11 @@ using ThinkEMR_Care.DataAccess.Repository.ProviderRepository;
 
 namespace ThinkEMR_Care.DataAccess
 {
-    public class ProviderRepository : IProviderRepository
+    public class ProvidersRepository : IProvidersRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public ProviderRepository(ApplicationDbContext dbContext)
+        public ProvidersRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

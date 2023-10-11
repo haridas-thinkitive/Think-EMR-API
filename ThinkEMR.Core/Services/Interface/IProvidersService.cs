@@ -7,7 +7,7 @@ using ThinkEMR_Care.DataAccess.Models.ProviderGroup;
 
 namespace ThinkEMR_Care.Core.Services.Interface
 {
-    public interface IProviderService
+    public interface IProvidersService
     {
         public Task AddNewProvider(Provider provider);
         public Task<IEnumerable<Provider>> GetAllProvider();

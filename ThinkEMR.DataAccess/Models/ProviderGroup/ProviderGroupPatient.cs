@@ -16,10 +16,10 @@ namespace ThinkEMR_Care.DataAccess.Models.ProviderGroup
         public int PatientID { get; set; }
 
         public string PatientName { get; set; }
-        public int ContactNumber { get; set; }
-        public int DOB { get; set; }
-        public int LastVisit { get; set; }
-        public bool Status { get; set; }
+        public string ContactNumber { get; set; }
+        public DateTime DOB { get; set; }
+        public DateTime LastVisit { get; set; }
+        public bool IsActive { get; set; }
 
         [ForeignKey("ProviderID")]
         public int ProviderID { get; set; }

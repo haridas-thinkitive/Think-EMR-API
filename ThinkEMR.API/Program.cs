@@ -14,8 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
-builder.Services.AddScoped<IProviderService, ProviderService>();
+builder.Services.AddScoped<IProvidersRepository, ProvidersRepository>();
+builder.Services.AddScoped<IProvidersService, ProvidersService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {

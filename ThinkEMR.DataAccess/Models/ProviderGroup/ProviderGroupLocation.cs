@@ -20,7 +20,7 @@ namespace ThinkEMR_Care.DataAccess.Models.ProviderGroup
 
         public string LocationName { get; set; }    
         public ProviderGroupLocationSpeciality Speciality { get; set; }
-        public bool Status { get; set; }
+        public bool IsActive { get; set; }
         public string ContactNumber { get; set; }
         public string EmailId { get; set; }
         public string FaxId { get; set; }
