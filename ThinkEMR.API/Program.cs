@@ -5,6 +5,7 @@ using ThinkEMR_Care.DataAccess;
 using ThinkEMR_Care.DataAccess.Data;
 using ThinkEMR_Care.DataAccess.Repository.ProviderRepository;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,12 +18,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProvidersRepository, ProvidersRepository>();
 builder.Services.AddScoped<IProvidersService, ProvidersService>();
 
+
+
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
