@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ThinkEMR_Care.DataAccess.Models
 {
-    public class PhysicalAddress
+    public class LocationsPhysicalAddress
     {
         [Key]
         public int Id { get; set; }
@@ -19,5 +18,4 @@ namespace ThinkEMR_Care.DataAccess.Models
         public string Country { get; set; }
         public string ZipCode { get; set; }
     }
-
 }
