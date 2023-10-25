@@ -1,14 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ThinkEMR_Care.DataAccess.Models;
-using ThinkEMR_Care.DataAccess.Models.Provider;
-using ThinkEMR_Care.DataAccess.Models.ProviderGroup;
 
 namespace ThinkEMR_Care.DataAccess.Data
 {
@@ -19,7 +12,7 @@ namespace ThinkEMR_Care.DataAccess.Data
         {
 
         }
-        protected override void OnModelCreating(ModelBuilder builder)
+        /*protected override void OnModelCreating(ModelBuilder builder)
         {
            base.OnModelCreating(builder);
             sendRoles(builder);

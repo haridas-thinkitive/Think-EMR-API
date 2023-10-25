@@ -15,7 +15,6 @@ using ThinkEMR_Care.DataAccess.Repository;
 using ThinkEMR_Care.DataAccess.Repository.Interface;
 using ThinkEMR_Care.DataAccess.Repository.ProviderRepository;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

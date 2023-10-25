@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,20 +8,27 @@ using System.Threading.Tasks;
 
 namespace ThinkEMR_Care.DataAccess.Models
 {
-    public class WorkingHours 
+    public class WorkingTime
     {
-        public string Monday { get; set; }
-        public string Tuesday { get; set; }
-        public string Wednesday { get; set; }
-        public string Thursday { get; set; }
-        public string Friday { get; set; }
-        public string Saturday { get; set; }
-        public string Sunday { get; set; }
-    }
-
-    public class Time
-    {
+        [Key]
+        public int Id { get; set; }
         public DateTime OpenTime { get; set; }
         public DateTime CloseTime { get; set; }
     }
+
+
+    public class PracticeOfficeHours
+    {
+        [Key]
+        public int Id { get; set; }
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thursday { get; set; }
+        public bool Friday { get; set; }
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
+    }
 }
+
+
