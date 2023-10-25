@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ThinkEMR_Care.DataAccess.Models;
 
 namespace ThinkEMR_Care.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
@@ -12,23 +14,39 @@ namespace ThinkEMR_Care.DataAccess.Data
         }
         /*protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-            
-        }*/
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ProviderGroupProfile>()
-                .HasOne(p => p.PhysicalAddress)
-                .WithMany()
-                .HasForeignKey(p => p.PhysicalAddressId)
-                .OnDelete(DeleteBehavior.NoAction); // Specify NO ACTION here
-
-            base.OnModelCreating(modelBuilder);
+           base.OnModelCreating(builder);
+            sendRoles(builder);
         }
 
-        public DbSet<ProviderGroupProfile> providerGroupProfiles { get; set; }
-        public DbSet<Locations> locations { get; set; }
-        public DbSet<Departments> departments { get; set; }
-       
+        private void sendRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Name = "Admin1", NormalizedName = "Admin1", ConcurrencyStamp = "1" },
+                new IdentityRole() { Name = "Admin2", NormalizedName = "Admin2", ConcurrencyStamp = "2" }
+         );
+        }
+
+
+        public DbSet<Collaborator> collaborators { get; set; }
+        public DbSet<Provider> Providers { get; set; }
+        public DbSet<DashboardCount> DashboardCounts { get; set; }
+
+        public DbSet<DashboardData> DashboardDatas { get; set; }
+        //public DbSet<ProviderGroup> ProviderGroups { get; set; }
+        //public DbSet<ProviderStaffUser> StaffUsers { get; set; }
+        //public DbSet<ProviderDepartment> ProviderDepartments { get; set; }
+        //public DbSet<ProviderGroupBillingAddress> ProviderGroupBillingAddress { get; set; }
+        //public DbSet<ProviderGroupLocation> ProviderGroupLocations { get; set; }
+        //public DbSet<ProviderGroupLocationBillingAddress> ProviderGroupLocationBillingAddress { get; set; }
+        //public DbSet<ProviderGroupLocationPhysicalAddress> ProviderGroupLocationPhysicalAddress { get; set; }
+        //public DbSet<ProviderGroupOfficeHour> ProviderGroupOfficeHours { get; set; }
+        //public DbSet<ProviderGroupPatient> ProviderGroupPatients { get; set; }
+        //public DbSet<ProviderGroupPhysicalAddress> ProviderGroupPhysicalAddress { get; set; }
+        //public DbSet<ProviderAcceptedInsurance> ProviderAcceptedInsurances { get; set; }
+        //public DbSet<ProviderLicensedState> ProviderLicensedStates { get; set; }
+        //public DbSet<ProviderSpokenLanguage> ProviderSpokenLanguages { get; set; }
+        //public DbSet<ProviderType> ProviderTypes { get; set; }
+        //public DbSet<ProviderWorkLocation> ProviderWorkLocations { get; set; }
+        //public DbSet<Speciality> Speciality { get; set; }
     }
 }
