@@ -19,5 +19,7 @@ namespace ThinkEMR_Care.DataAccess.Models.Authentication.SignUp
 
         public string Token { get; set; } = null!;
 
+        public string OTP { get; set; } = null!;
+
     }
 }

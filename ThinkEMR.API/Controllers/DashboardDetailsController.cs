@@ -5,7 +5,7 @@ using ThinkEMR_Care.DataAccess.Models;
 
 namespace ThinkEMR_Care.API.Controllers
 {
-    [Authorize(Roles ="Admin1", AuthenticationSchemes = "Bearer")]
+    [Authorize(Roles ="SuperAdmin", AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class DashboardDetailsController : ControllerBase

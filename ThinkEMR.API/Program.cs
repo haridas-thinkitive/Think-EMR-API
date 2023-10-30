@@ -7,13 +7,10 @@ using NETCore.MailKit.Core;
 using System.Text;
 using ThinkEMR_Care.Core.Services;
 using ThinkEMR_Care.Core.Services.Interface;
-using ThinkEMR_Care.Core.Services.Services;
-using ThinkEMR_Care.DataAccess;
 using ThinkEMR_Care.DataAccess.Data;
 using ThinkEMR_Care.DataAccess.Models;
 using ThinkEMR_Care.DataAccess.Repository;
 using ThinkEMR_Care.DataAccess.Repository.Interface;
-using ThinkEMR_Care.DataAccess.Repository.ProviderRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,8 +50,8 @@ builder.Services.AddSwaggerGen(c =>
 //UserManagementServices
 builder.Services.AddScoped<IUserManagement, UserManagementService>();
 
-builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
-builder.Services.AddScoped<IProviderService, ProviderService>();
+//builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+//builder.Services.AddScoped<IProviderService, ProviderService>();
 
 
 builder.Services.AddScoped<IDashboardDetailsCount,DashboardDetailsRepository>();
@@ -64,6 +61,25 @@ builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>(
 builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
 builder.Services.AddScoped<IEmailSMTP, EmailSMTPServices>();
 builder.Services.AddScoped<IEmail, EmailServices>();
+
+//Sagar Services
+builder.Services.AddScoped<ICPCTCodeCatalog,CPCTCodeCatalogServices>();
+builder.Services.AddScoped<ICPCTCodeCatalogRepository,CPCTCodeCatalogRepository>();
+
+builder.Services.AddScoped<IDataImportRepository, DataImportRepository>();
+builder.Services.AddScoped<IDataImportServices, DataImportServices>();
+
+builder.Services.AddScoped<IDrugCatalogRepository, DrugCatalogRepository>();
+builder.Services.AddScoped<IDrugCatalogServices, DrugCatalogServices>();
+
+builder.Services.AddScoped<IHCPCSCodeCatalogRepository, HCPCSCodeCatalogRepository>();
+builder.Services.AddScoped<IHCPCSCodeCatalogServices, HCPCSCodeCatalogServices>();
+
+builder.Services.AddScoped<IICD10CodeCatalogRepository, ICD10CodeCatalogRepository>();
+builder.Services.AddScoped<IICD10CodeCatalogServices , ICD10CodeCatalogServices>();
+
+builder.Services.AddScoped<ILOINCCodeRepository, LOINCCodeRepository>();
+builder.Services.AddScoped<ILOINCCodeServices, LOINCCodeServices>();
 
 // Add Services Repository as well as Interface and service Layer
 builder.Services.AddAuthentication(options =>

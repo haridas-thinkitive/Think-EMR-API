@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -130,6 +131,24 @@ namespace ThinkEMR_Care.API.Controllers.Auth
             return token;
         }
 
+        //[HttpPost("ForgotPassword")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> ForgotPassword([Required] string email)
+        //{
+        //    var user = await _userManager.FindByEmailAsync(email);
+        //    if (user != null)
+        //    {
+        //        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+        //        var forgotPasswordLink = Url.Action(nameof(ResetPassword), "Authentication", new { token, email = user.Email }, Request.Scheme);
+        //        var message = new Message(new string[] { user.Email! }, "Forgot Password link", forgotPasswordLink!);
+        //        await _email.SendEmail(message);
+        //        return StatusCode(StatusCodes.Status200OK, new Responce { status = "Success", Message = $"Password changes request is send on email{user.Email}" });
+        //    }
+        //    return StatusCode(StatusCodes.Status200OK, new Responce { status = "Error", Message = "Failed To send link.. Please try again" });
+
+        //}
+
         [HttpPost("ForgotPassword")]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword([Required] string email)
@@ -137,26 +156,60 @@ namespace ThinkEMR_Care.API.Controllers.Auth
             var user = await _userManager.FindByEmailAsync(email);
             if (user != null)
             {
+                var otp = GenerateRandomOTP();
+
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
                 var forgotPasswordLink = Url.Action(nameof(ResetPassword), "Authentication", new { token, email = user.Email }, Request.Scheme);
-                var message = new Message(new string[] { user.Email! }, "Forgot Password link", forgotPasswordLink!);
-                await _email.SendEmail(message);
-                return StatusCode(StatusCodes.Status200OK, new Responce { status = "Success", Message = $"Password changes request is send on email{user.Email}" });
-            }
-            return StatusCode(StatusCodes.Status200OK, new Responce { status = "Error", Message = "Failed To send link.. Please try again" });
 
+                var message = new Message(new string[] { user.Email! }, "Password Reset OTP", $"Your OTP for password reset is: {otp}");
+                await _email.SendEmail(message);
+
+                var resp = new PasswordResetResponse
+                {
+                    Status = true,
+                    Message = "Password reset OTP has been sent to your email",
+                    Token = token,
+                    Email = email,
+                    Otp = otp
+                };
+                return new ObjectResult(resp)
+                {
+                    StatusCode = StatusCodes.Status200OK
+                };
+
+            }
+            return StatusCode(StatusCodes.Status200OK, new Responce { status = "Error", Message = "Failed To send link.. Please try again" , });
+
+        }
+
+        private string GenerateRandomOTP()
+        {
+            Random random = new Random();
+            int otp = random.Next(100000, 999999);
+            return otp.ToString();
         }
 
         [HttpGet("ResetPassword")]
         public async Task<IActionResult> Resetpassword(string token, string email)
         {
-            var model = new ResetPassword { Token = token, Email = email };
+            var model = new PasswordResetResponse { Token = token, Email = email ,Otp = GenerateRandomOTP(), };
             return Ok(new
             {
                 model
             });
         }
+
+
+        //[HttpGet("ResetPassword")]
+        //public async Task<IActionResult> Resetpassword(string token, string email)
+        //{
+        //    var model = new ResetPassword { Token = token, Email = email };
+        //    return Ok(new
+        //    {
+        //        model
+        //    });
+        //}
 
         [HttpPost]
         [AllowAnonymous]
