@@ -81,7 +81,7 @@ namespace ThinkEMR_Care.Core.Services
                     return new APIResponce<string> { IsSuccess = false, StatusCode = 500, Message = "Incorrect UserName And Password" };
                 }
                 else
-                {
+                { 
                         var authClaims = new List<Claim>
                         {
                         new Claim(ClaimTypes.Name, user.UserName),
@@ -93,8 +93,7 @@ namespace ThinkEMR_Care.Core.Services
                             authClaims.Add(new Claim(ClaimTypes.Role, role));
                         }
                         var jwtToken = GetJwtToken(authClaims);
-                        return new APIResponce<string> { IsSuccess = true, StatusCode = 200, Responce = jwtToken.EncodedPayload };
-
+                        return new APIResponce<string> { IsSuccess = true, StatusCode = 200, Responce = jwtToken };
                 }
 
             }
@@ -104,7 +103,7 @@ namespace ThinkEMR_Care.Core.Services
             }
         }
 
-        private JwtSecurityToken GetJwtToken(List<Claim> authClaims)
+        private string GetJwtToken(List<Claim> authClaims)
         {
             var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
@@ -115,7 +114,9 @@ namespace ThinkEMR_Care.Core.Services
                 expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256)
             );
-            return token;
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
         }
 
     }
