@@ -20,11 +20,11 @@ namespace ThinkEMR_Care.DataAccess.Repository
 
         public async Task<List<DataImport>> GetAllDataImport()
         {
-            return await _context.dataImports.ToListAsync();
+            return await _context.DataImports.ToListAsync();
         }
         public async Task<DataImport> CreateDataImport(DataImport dataImport)
         {
-            _context.dataImports.Add(dataImport);
+            _context.DataImports.Add(dataImport);
             await _context.SaveChangesAsync();
             return dataImport;
         }

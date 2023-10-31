@@ -23,7 +23,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                return await _context.locations.ToListAsync();
+                return await _context.Locations.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                _context.locations.Add(locations);
+                _context.Locations.Add(locations);
                 await _context.SaveChangesAsync();
                 return locations;
             }
@@ -49,7 +49,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var location = await _context.locations.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var location = await _context.Locations.Where(p => p.Id == id).FirstOrDefaultAsync();
                 if (location != null)
                 {
                     return location;
@@ -69,7 +69,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var existingLocation = await _context.locations.FindAsync(id);
+                var existingLocation = await _context.Locations.FindAsync(id);
                 if (existingLocation == null)
                 {
                     return null; 
@@ -97,10 +97,10 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var result = await _context.locations.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var result = await _context.Locations.Where(p => p.Id == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    _context.locations.Remove(result);
+                    _context.Locations.Remove(result);
                     await _context.SaveChangesAsync();
                 }
                 return result;

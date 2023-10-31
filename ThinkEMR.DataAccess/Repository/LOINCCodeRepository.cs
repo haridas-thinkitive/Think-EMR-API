@@ -20,11 +20,11 @@ namespace ThinkEMR_Care.DataAccess.Repository
 
         public async Task<List<LOINCCodeCatalog>> GetAllLOINC()
         {
-            return await _context.loINCCodeCatalogs.ToListAsync();
+            return await _context.LOINCCodeCatalogs.ToListAsync();
         }
         public async Task<LOINCCodeCatalog> CreateLOINCCodeCatalog(LOINCCodeCatalog loincCodeCatalog)
         {
-            _context.loINCCodeCatalogs.Add(loincCodeCatalog);
+            _context.LOINCCodeCatalogs.Add(loincCodeCatalog);
             await _context.SaveChangesAsync();
             return loincCodeCatalog;
         }
