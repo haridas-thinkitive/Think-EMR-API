@@ -20,23 +20,23 @@ namespace ThinkEMR_Care.DataAccess.Repository
 
         public async Task<List<DrugCatalog>> GetAllDrugCatalog()
         {
-            return await _context.drugCatalogs.ToListAsync();
+            return await _context.DrugCatalogs.ToListAsync();
         }
 
         public async Task<DrugCatalog> FindById(int id)
         {
-            return await _context.drugCatalogs.FindAsync(id);
+            return await _context.DrugCatalogs.FindAsync(id);
         }
         public async Task<DrugCatalog> CreateDrugCatalog(DrugCatalog drugCatalog)
         {
-            _context.drugCatalogs.Add(drugCatalog);
+            _context.DrugCatalogs.Add(drugCatalog);
             await _context.SaveChangesAsync();
             return drugCatalog;
         }
 
         public async Task<DrugCatalog> UpdateDrugCatalog(DrugCatalog drugCatalog)
         {
-            var existingDrugCatalog = await _context.drugCatalogs.FirstOrDefaultAsync(dc => dc.Id == drugCatalog.Id);
+            var existingDrugCatalog = await _context.DrugCatalogs.FirstOrDefaultAsync(dc => dc.Id == drugCatalog.Id);
 
             if (existingDrugCatalog == null)
             {

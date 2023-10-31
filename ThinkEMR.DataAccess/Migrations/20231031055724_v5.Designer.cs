@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThinkEMR_Care.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using ThinkEMR_Care.DataAccess.Data;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231031055724_v5")]
+    partial class v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,14 +54,14 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4bb434db-e027-4f94-9110-47c8f2c45533",
+                            Id = "08aff6c8-a904-4b40-8848-4dbbcee95b89",
                             ConcurrencyStamp = "1",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "1807aa97-9c4d-49e1-8ecc-0cad19737029",
+                            Id = "ed53fb62-3242-4028-b4e1-81303f3d3546",
                             ConcurrencyStamp = "2",
                             Name = "Admin",
                             NormalizedName = "Admin1"

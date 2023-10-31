@@ -24,7 +24,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                return await _context.departments.ToListAsync();
+                return await _context.Departments.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                _context.departments.Add(departments);
+                _context.Departments.Add(departments);
                 await _context.SaveChangesAsync();
                 return departments;
             }
@@ -49,7 +49,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var department = await _context.departments.Where(d => d.Id == id).FirstOrDefaultAsync();
+                var department = await _context.Departments.Where(d => d.Id == id).FirstOrDefaultAsync();
                 if (department != null)
                 {
                     return department;
@@ -69,7 +69,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var existingDepartment = await _context.departments.FindAsync(id);
+                var existingDepartment = await _context.Departments.FindAsync(id);
 
                 if (existingDepartment == null)
                 {
@@ -93,10 +93,10 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var result = await _context.departments.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var result = await _context.Departments.Where(p => p.Id == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    _context.departments.Remove(result);
+                    _context.Departments.Remove(result);
                     await _context.SaveChangesAsync();
                 }
                 return result;

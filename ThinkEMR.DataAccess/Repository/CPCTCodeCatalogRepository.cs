@@ -20,11 +20,11 @@ namespace ThinkEMR_Care.DataAccess.Repository
 
         public async Task<List<CPTCodeCatalog>> GetAllCPCTCodeCatalog()
         {
-            return await _context.cPTCodeCatalogs.ToListAsync();
+            return await _context.CPTCodeCatalogs.ToListAsync();
         }
         public async Task<CPTCodeCatalog> CreateCPCTCodeCatalog(CPTCodeCatalog cptCodeCatalog)
         {
-            _context.cPTCodeCatalogs.Add(cptCodeCatalog);
+            _context.CPTCodeCatalogs.Add(cptCodeCatalog);
             await _context.SaveChangesAsync();
             return cptCodeCatalog;
         }

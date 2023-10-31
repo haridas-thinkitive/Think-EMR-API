@@ -81,6 +81,10 @@ builder.Services.AddScoped<IICD10CodeCatalogServices , ICD10CodeCatalogServices>
 builder.Services.AddScoped<ILOINCCodeRepository, LOINCCodeRepository>();
 builder.Services.AddScoped<ILOINCCodeServices, LOINCCodeServices>();
 
+//Vishal
+builder.Services.AddScoped<IRolesAndResponsibilityRepository, RolesAndResponsibilityRepository>();
+builder.Services.AddScoped<IRolesAndResponsibilityService, RolesAndResponsibilityService>();
+
 // Add Services Repository as well as Interface and service Layer
 builder.Services.AddAuthentication(options =>
 {

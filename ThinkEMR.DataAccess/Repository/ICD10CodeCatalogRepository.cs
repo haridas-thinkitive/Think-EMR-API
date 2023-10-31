@@ -19,11 +19,11 @@ namespace ThinkEMR_Care.DataAccess.Repository
         }
         public async Task<List<ICD10CodeCatalog>> GetAllIICD10CodeCatalog()
         {
-            return await _context.icD10CodeCatalogs.ToListAsync();
+            return await _context.ICD10CodeCatalogs.ToListAsync();
         }
         public async Task<ICD10CodeCatalog> CreateICD10CodeCatalog(ICD10CodeCatalog icd10CodeCatalog)
         {
-            _context.icD10CodeCatalogs.Add(icd10CodeCatalog);
+            _context.ICD10CodeCatalogs.Add(icd10CodeCatalog);
             await _context.SaveChangesAsync();
             return icd10CodeCatalog;
         }

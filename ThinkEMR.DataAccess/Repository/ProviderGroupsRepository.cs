@@ -22,7 +22,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                return await _context.providerGroupProfiles.ToListAsync();
+                return await _context.ProviderGroupProfiles.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
 
                 }
 
-                _context.providerGroupProfiles.Add(providerGroupProfile);
+                _context.ProviderGroupProfiles.Add(providerGroupProfile);
                 await _context.SaveChangesAsync();
                 return providerGroupProfile;
             }
@@ -103,7 +103,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var providerGroup = await _context.providerGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var providerGroup = await _context.ProviderGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
                 if (providerGroup != null)
                 {
                     return providerGroup;
@@ -123,7 +123,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var existingProviderGroup = await _context.providerGroupProfiles.FindAsync(id);
+                var existingProviderGroup = await _context.ProviderGroupProfiles.FindAsync(id);
 
                 if (existingProviderGroup == null)
                 {
@@ -153,10 +153,10 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var result = await _context.providerGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var result = await _context.ProviderGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    _context.providerGroupProfiles.Remove(result);
+                    _context.ProviderGroupProfiles.Remove(result);
                     await _context.SaveChangesAsync();
                 }
                 return result;

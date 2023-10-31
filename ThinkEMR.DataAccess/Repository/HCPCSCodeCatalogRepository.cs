@@ -19,11 +19,11 @@ namespace ThinkEMR_Care.DataAccess.Repository
         }
         public async Task<List<HCPCSCodeCatalog>> GetAllHCPCSCodeCatalog()
         {
-            return await _context.hPCSCodeCatalogs.ToListAsync();
+            return await _context.HCPCSCodeCatalogs.ToListAsync();
         }
         public async Task<HCPCSCodeCatalog> CreateHCPCSCodeCatalog(HCPCSCodeCatalog hcpcsCodeCatalog)
         {
-            _context.hPCSCodeCatalogs.Add(hcpcsCodeCatalog);
+            _context.HCPCSCodeCatalogs.Add(hcpcsCodeCatalog);
             await _context.SaveChangesAsync();
             return hcpcsCodeCatalog;
         }
