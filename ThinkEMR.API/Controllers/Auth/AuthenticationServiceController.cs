@@ -183,6 +183,68 @@ namespace ThinkEMR_Care.API.Controllers.Auth
 
         }
 
+        [HttpPost("ResendOTP")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResendOTP([Required] string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var otp = GenerateRandomOTP();
+
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                var forgotPasswordLink = Url.Action(nameof(ResetPassword), "Authentication", new { token, email = user.Email }, Request.Scheme);
+
+                var message = new Message(new string[] { user.Email! }, "Password Reset OTP", $"Your OTP for password reset is: {otp}");
+                await _email.SendEmail(message);
+
+                var resp = new PasswordResetResponse
+                {
+                    Status = true,
+                    Message = "Password reset OTP has been sent to your email",
+                    Token = token,
+                    Email = email,
+                    Otp = otp
+                };
+                return new ObjectResult(resp)
+                {
+                    StatusCode = StatusCodes.Status200OK
+                };
+
+            }
+            return StatusCode(StatusCodes.Status200OK, new Responce { status = "Error", Message = "Failed To send link.. Please try again", });
+
+        }
+
+        //[HttpPost("ResendOTPUser")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> ResendOTPUser([Required] string email)
+        //{
+        //    var user = await _userManager.FindByEmailAsync(email);
+        //    if (user != null)
+        //    {
+        //        var otp = GenerateRandomOTP();
+        //        var message = new Message(new string[] { user.Email! }, "Password Reset OTP", $"Your OTP for password reset is: {otp}");
+        //        await _email.SendEmail(message);
+
+        //        var result = new PasswordResetResponse
+        //        {
+        //            Status = true,
+        //            Message = "Password reset OTP has been sent to your email",
+        //            Email = email,
+        //            Otp = otp
+        //        };
+        //        return new ObjectResult(result)
+        //        {
+        //            StatusCode = StatusCodes.Status200OK
+        //        };
+
+        //    }
+        //    return StatusCode(StatusCodes.Status400BadRequest, new Responce { status = "Error", Message = "Failed To send link.. Please try again", });
+
+        //}
+
         private string GenerateRandomOTP()
         {
             Random random = new Random();
