@@ -12,8 +12,8 @@ using ThinkEMR_Care.DataAccess.Data;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231031060609_V6")]
-    partial class V6
+    [Migration("20231103092715_emrv2")]
+    partial class emrv2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,14 +54,14 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4bb434db-e027-4f94-9110-47c8f2c45533",
+                            Id = "1423d735-dd8a-4bba-abcc-b35793200c35",
                             ConcurrencyStamp = "1",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "1807aa97-9c4d-49e1-8ecc-0cad19737029",
+                            Id = "1b5a78de-eef9-4c55-a0ca-4ca286afaf8e",
                             ConcurrencyStamp = "2",
                             Name = "Admin",
                             NormalizedName = "Admin1"
@@ -885,7 +885,7 @@ namespace ThinkEMR_Care.DataAccess.Migrations
 
                     b.HasIndex("PracticeOfficeHoursId");
 
-                    b.ToTable("ProviderGroupProfiles");
+                    b.ToTable("ProviderGroupProfile");
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.Permission", b =>

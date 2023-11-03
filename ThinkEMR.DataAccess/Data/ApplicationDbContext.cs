@@ -32,7 +32,7 @@ namespace ThinkEMR_Care.DataAccess.Data
                 .OnDelete(DeleteBehavior.NoAction);
         }
         
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+       /* protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProviderGroupProfile>()
                 .HasOne(p => p.PhysicalAddress)
@@ -41,7 +41,7 @@ namespace ThinkEMR_Care.DataAccess.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);
-        }
+        }*/
 
         public DbSet<ProviderGroupProfile> providerGroupProfiles { get; set; }
         public DbSet<Locations> locations { get; set; }
