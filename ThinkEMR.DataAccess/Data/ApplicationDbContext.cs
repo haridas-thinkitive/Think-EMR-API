@@ -17,42 +17,27 @@ namespace ThinkEMR_Care.DataAccess.Data
         {
 
         }
-        protected override void OnModelCreating(ModelBuilder builder)
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
-            SeedProviderHelperData(builder);
-            
+            modelBuilder.Entity<ProviderGroupProfile>()
+                .HasOne(p => p.PhysicalAddress)
+                .WithMany()
+                .HasForeignKey(p => p.PhysicalAddressId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            base.OnModelCreating(modelBuilder);
         }
 
-        private void SeedProviderHelperData(ModelBuilder builder)
-        {
-            builder.Entity<ProviderType>().HasData
-                (
-                new ProviderType() { ProviderTypeName = "MD"},
-                new ProviderType() { ProviderTypeName = "PA"},
-                new ProviderType() { ProviderTypeName = "PSYD"},
-                new ProviderType() { ProviderTypeName = "LCSW"},
-                new ProviderType() { ProviderTypeName = "NP"}
-                 );
-        }
+        public DbSet<ProviderGroupProfile> providerGroupProfiles { get; set; }
+        public DbSet<Locations> locations { get; set; }
+        public DbSet<Departments> departments { get; set; }
+        public DbSet<PhysicalAddress> PhysicalAddress { get; set; }
+        public DbSet<BillingAddress> BillingAddress { get; set; }
+        public DbSet<PracticeOfficeHours> PracticeOfficeHours { get; set; }
+        public DbSet<LocationsPhysicalAddress> LocationsPhysicalAddress { get; set; }
+        public DbSet<LocationsBillingAddress> LocationsBillingAddress { get; set; }
 
-
-        public DbSet<Provider> Providers { get; set; }
-        public DbSet<ProviderGroup> ProviderGroups { get; set; }
-        public DbSet<ProviderStaffUser> StaffUsers { get; set; }
-        public DbSet<ProviderDepartment> ProviderDepartments { get; set; }
-        public DbSet<ProviderGroupBillingAddress> ProviderGroupBillingAddress { get; set; }
-        public DbSet<ProviderGroupLocation> ProviderGroupLocations { get; set; }
-        public DbSet<ProviderGroupLocationBillingAddress> ProviderGroupLocationBillingAddress { get; set; }
-        public DbSet<ProviderGroupLocationPhysicalAddress> ProviderGroupLocationPhysicalAddress { get; set; }
-        public DbSet<ProviderGroupOfficeHour> ProviderGroupOfficeHours { get; set; }
-        public DbSet<ProviderGroupPatient> ProviderGroupPatients { get; set; }
-        public DbSet<ProviderGroupPhysicalAddress> ProviderGroupPhysicalAddress { get; set; }
-        public DbSet<ProviderAcceptedInsurance> ProviderAcceptedInsurances { get; set; }
-        public DbSet<ProviderLicensedState> ProviderLicensedStates { get; set; }
-        public DbSet<ProviderSpokenLanguage> ProviderSpokenLanguages { get; set; }
-        public DbSet<ProviderType> ProviderTypes { get; set; }
-        public DbSet<ProviderWorkLocation> ProviderWorkLocations { get; set; }
-        public DbSet<Speciality> Speciality { get; set; }
+        
     }
 }
