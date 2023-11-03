@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ThinkEMR_Care.DataAccess.Data;
-using ThinkEMR_Care.DataAccess.Migrations;
 using ThinkEMR_Care.DataAccess.Models;
 using ThinkEMR_Care.DataAccess.Repository.Interface;
 
