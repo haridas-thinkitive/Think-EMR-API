@@ -20,9 +20,14 @@ namespace ThinkEMR_Care.DataAccess.Repository
 
         public async Task<List<ProviderGroupProfile>> GetProviderGroups()
         {
+            var providerGroupProfile = await _context.providerGroupProfiles
+                    .Include(p => p.PhysicalAddress)
+                    .Include(p => p.BillingAddress)
+                    .Include(p => p.PracticeOfficeHours)
+                    .ToListAsync();
             try
             {
-                return await _context.ProviderGroupProfiles.ToListAsync();
+                return providerGroupProfile.ToList();
             }
             catch (Exception ex)
             {
@@ -34,7 +39,6 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                
                 if (providerGroupProfile != null)
                 {
                     var result = new ProviderGroupProfile
@@ -85,10 +89,8 @@ namespace ThinkEMR_Care.DataAccess.Repository
                         UpdatedDate = providerGroupProfile.UpdatedDate
                     };
                     providerGroupProfile = result;
-
                 }
-
-                _context.ProviderGroupProfiles.Add(providerGroupProfile);
+                _context.providerGroupProfiles.Add(providerGroupProfile);
                 await _context.SaveChangesAsync();
                 return providerGroupProfile;
             }
@@ -98,12 +100,17 @@ namespace ThinkEMR_Care.DataAccess.Repository
             }
         }
 
-
         public async Task<ProviderGroupProfile> GetProviderGroupsById(int id)
         {
             try
             {
-                var providerGroup = await _context.ProviderGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var providerGroup = await _context.providerGroupProfiles
+                    .Include(p => p.PhysicalAddress)
+                    .Include(p => p.BillingAddress)
+                    .Include(p => p.PracticeOfficeHours)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                //var providerGroup = await _context.providerGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
+
                 if (providerGroup != null)
                 {
                     return providerGroup;
@@ -119,32 +126,81 @@ namespace ThinkEMR_Care.DataAccess.Repository
             }
         }
 
-        public async Task<ProviderGroupProfile> EditProviderGroups(int id, ProviderGroupProfile providerGroupProfile)
+
+        public async Task<ProviderGroupProfile> EditProviderGroups(int id, ProviderGroupProfile updatedProviderGroupProfile)
         {
             try
             {
-                var existingProviderGroup = await _context.ProviderGroupProfiles.FindAsync(id);
+                //var existingProviderGroupProfile = await _context.providerGroupProfiles.FindAsync(id);
 
-                if (existingProviderGroup == null)
+                var existingProviderGroupProfile = await _context.providerGroupProfiles
+                    .Include(p => p.PhysicalAddress)
+                    .Include(p => p.BillingAddress)
+                    .Include(p => p.PracticeOfficeHours)
+                    .Where(p => p.Id == id)
+                    .FirstOrDefaultAsync();
+
+                if (existingProviderGroupProfile != null)
                 {
-                    return null;
+                    // Update the properties of the existing ProviderGroupProfile with the values from the updated model
+                    existingProviderGroupProfile.Image = updatedProviderGroupProfile.Image;
+                    existingProviderGroupProfile.ProviderGroupName = updatedProviderGroupProfile.ProviderGroupName;
+                    existingProviderGroupProfile.ContactNumber = updatedProviderGroupProfile.ContactNumber;
+                    existingProviderGroupProfile.GroupNPINumber = updatedProviderGroupProfile.GroupNPINumber;
+                    existingProviderGroupProfile.Website = updatedProviderGroupProfile.Website;
+                    existingProviderGroupProfile.Information = updatedProviderGroupProfile.Information;
+                    existingProviderGroupProfile.SpecialityTypes = updatedProviderGroupProfile.SpecialityTypes;
+                    existingProviderGroupProfile.EmailId = updatedProviderGroupProfile.EmailId;
+                    existingProviderGroupProfile.FaxId = updatedProviderGroupProfile.FaxId;
+
+                    if (existingProviderGroupProfile.PhysicalAddress != null)
+                    {
+                        // Update PhysicalAddress
+                        existingProviderGroupProfile.PhysicalAddress.Address1 = updatedProviderGroupProfile.PhysicalAddress.Address1;
+                        existingProviderGroupProfile.PhysicalAddress.Address2 = updatedProviderGroupProfile.PhysicalAddress.Address2;
+                        existingProviderGroupProfile.PhysicalAddress.City = updatedProviderGroupProfile.PhysicalAddress.City;
+                        existingProviderGroupProfile.PhysicalAddress.State = updatedProviderGroupProfile.PhysicalAddress.State;
+                        existingProviderGroupProfile.PhysicalAddress.Country = updatedProviderGroupProfile.PhysicalAddress.Country;
+                        existingProviderGroupProfile.PhysicalAddress.ZipCode = updatedProviderGroupProfile.PhysicalAddress.ZipCode;
+
+                    }
+
+                    if (existingProviderGroupProfile.BillingAddress != null)
+                    {
+                        // Update BillingAddress
+                        existingProviderGroupProfile.BillingAddress.Address1 = updatedProviderGroupProfile.BillingAddress.Address1;
+                        existingProviderGroupProfile.BillingAddress.Address2 = updatedProviderGroupProfile.BillingAddress.Address2;
+                        existingProviderGroupProfile.BillingAddress.City = updatedProviderGroupProfile.BillingAddress.City;
+                        existingProviderGroupProfile.BillingAddress.State = updatedProviderGroupProfile.BillingAddress.State;
+                        existingProviderGroupProfile.BillingAddress.Country = updatedProviderGroupProfile.BillingAddress.Country;
+                        existingProviderGroupProfile.BillingAddress.ZipCode = updatedProviderGroupProfile.BillingAddress.ZipCode;
+                        existingProviderGroupProfile.BillingAddress.SameAsPhysicalAddress = updatedProviderGroupProfile.BillingAddress.SameAsPhysicalAddress;
+
+                    }
+
+                    if (existingProviderGroupProfile.PracticeOfficeHours != null && updatedProviderGroupProfile.PracticeOfficeHours != null)
+                    {
+                        // Update PracticeOfficeHours
+                        existingProviderGroupProfile.PracticeOfficeHours.Monday = updatedProviderGroupProfile.PracticeOfficeHours.Monday;
+                        existingProviderGroupProfile.PracticeOfficeHours.Tuesday = updatedProviderGroupProfile.PracticeOfficeHours.Tuesday;
+                        existingProviderGroupProfile.PracticeOfficeHours.Wednesday = updatedProviderGroupProfile.PracticeOfficeHours.Wednesday;
+                        existingProviderGroupProfile.PracticeOfficeHours.Thursday = updatedProviderGroupProfile.PracticeOfficeHours.Thursday;
+                        existingProviderGroupProfile.PracticeOfficeHours.Friday = updatedProviderGroupProfile.PracticeOfficeHours.Friday;
+                        existingProviderGroupProfile.PracticeOfficeHours.Saturday = updatedProviderGroupProfile.PracticeOfficeHours.Saturday;
+                        existingProviderGroupProfile.PracticeOfficeHours.Sunday = updatedProviderGroupProfile.PracticeOfficeHours.Sunday;
+
+                    }
+
+                    existingProviderGroupProfile.UpdatedDate = DateTime.Now;
+
+                    await _context.SaveChangesAsync();
                 }
-                _context.Entry(existingProviderGroup).State = EntityState.Detached;
 
-                if (id != providerGroupProfile.Id)
-                {
-                    return null;
-                }
-                _context.Attach(providerGroupProfile);
-                _context.Entry(providerGroupProfile).State = EntityState.Modified;
-
-                await _context.SaveChangesAsync();
-
-                return providerGroupProfile;
+                return updatedProviderGroupProfile;
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
         }
 
@@ -153,10 +209,11 @@ namespace ThinkEMR_Care.DataAccess.Repository
         {
             try
             {
-                var result = await _context.ProviderGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var result = await _context.providerGroupProfiles.Where(p => p.Id == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    _context.ProviderGroupProfiles.Remove(result);
+                    _context.providerGroupProfiles.Remove(result);
+
                     await _context.SaveChangesAsync();
                 }
                 return result;

@@ -31,7 +31,28 @@ namespace ThinkEMR_Care.DataAccess.Data
                 .HasForeignKey(p => p.PhysicalAddressId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProviderGroupProfile>()
+                .HasOne(p => p.PhysicalAddress)
+                .WithMany()
+                .HasForeignKey(p => p.PhysicalAddressId)
+                .OnDelete(DeleteBehavior.NoAction);
 
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public DbSet<ProviderGroupProfile> providerGroupProfiles { get; set; }
+        public DbSet<Locations> locations { get; set; }
+        public DbSet<Departments> departments { get; set; }
+        public DbSet<PhysicalAddress> PhysicalAddress { get; set; }
+        public DbSet<BillingAddress> BillingAddress { get; set; }
+        public DbSet<PracticeOfficeHours> PracticeOfficeHours { get; set; }
+        public DbSet<LocationsPhysicalAddress> LocationsPhysicalAddress { get; set; }
+        public DbSet<LocationsBillingAddress> LocationsBillingAddress { get; set; }
+
+       
         private void SendRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(
@@ -87,5 +108,6 @@ namespace ThinkEMR_Care.DataAccess.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
+
     }
 }
