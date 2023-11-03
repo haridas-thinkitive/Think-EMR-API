@@ -85,7 +85,15 @@ builder.Services.AddScoped<ILOINCCodeServices, LOINCCodeServices>();
 builder.Services.AddScoped<IRolesAndResponsibilityRepository, RolesAndResponsibilityRepository>();
 builder.Services.AddScoped<IRolesAndResponsibilityService, RolesAndResponsibilityService>();
 
-// Add Services Repository as well as Interface and service Layer
+//Anup
+
+builder.Services.AddScoped<IProviderGroupsRepository , ProviderGroupsRepository>();
+builder.Services.AddScoped<IProviderGroupsService , ProviderGroupsService>();
+
+builder.Services.AddScoped<ILocationsRepository,LocationsRepository>();
+builder.Services.AddScoped<ILocationsService, LocationsService>();
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -107,22 +115,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
-
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(options =>
-//    {
-//        options.TokenValidationParameters = new TokenValidationParameters
-//        {
-//            ValidateIssuer = true,
-//            ValidateAudience = true,
-//            ValidateLifetime = true,
-//            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//            ValidAudience = builder.Configuration["Jwt:Audience"],
-//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF32.GetBytes(builder.Configuration["Jwt:Key"]))
-//        };
-//    });
-
-
 var configuration = builder.Configuration;
 
 //Dababase Connectionstrng
