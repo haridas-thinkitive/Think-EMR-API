@@ -41,6 +41,7 @@ namespace ThinkEMR_Care.API.Controllers
         }
 
         [HttpPut]
+
         [Route("/EditLocations/{id}")]
         public async Task<ActionResult<Locations>> EditLocations([FromBody] Locations locations, [FromRoute] int id)
         {

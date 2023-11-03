@@ -76,7 +76,6 @@ namespace ThinkEMR_Care.DataAccess.Repository
                     return null;
                 }
                 _context.Entry(existingDepartment).CurrentValues.SetValues(departments);
-                
                 await _context.SaveChangesAsync();
 
                 return departments;

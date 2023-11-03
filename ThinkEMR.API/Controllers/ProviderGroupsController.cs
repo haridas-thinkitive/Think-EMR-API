@@ -45,6 +45,7 @@ namespace ThinkEMR_Care.API.Controllers
 
         [HttpPut]
         [Route("/EditProviderGroups/{id}")]
+
         public async Task<ActionResult<ProviderGroupProfile>> EditProviderGroups([FromBody] ProviderGroupProfile providerGroupProfile, [FromRoute] int id)
         {
             var result = await _providerGroupsServices.EditProviderGroups(id, providerGroupProfile);
