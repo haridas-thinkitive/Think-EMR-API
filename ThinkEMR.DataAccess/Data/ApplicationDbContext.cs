@@ -51,6 +51,9 @@ namespace ThinkEMR_Care.DataAccess.Data
         public DbSet<PracticeOfficeHours> PracticeOfficeHours { get; set; }
         public DbSet<LocationsPhysicalAddress> LocationsPhysicalAddress { get; set; }
         public DbSet<LocationsBillingAddress> LocationsBillingAddress { get; set; }
+        public DbSet<StaffUser> StaffUsers { get; set; }
+        public DbSet<ProviderUser> ProviderUsers { get; set; }
+        public DbSet<BasicAccountProfileData> BasicAccountProfileData { get; set; }
 
        
         private void SendRoles(ModelBuilder builder)
