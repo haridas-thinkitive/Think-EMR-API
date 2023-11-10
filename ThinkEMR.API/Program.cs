@@ -96,6 +96,9 @@ builder.Services.AddScoped<ILocationsService, LocationsService>();
 builder.Services.AddScoped<IDepartmentsRepository, DepartmentsRepository>();
 builder.Services.AddScoped<IDepartmentsService, DepartmentsService>();
 
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersServices, UsersServices>();
+
 
 builder.Services.AddAuthentication(options =>
 {
