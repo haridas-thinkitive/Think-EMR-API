@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using ThinkEMR_Care.DataAccess.Data;
+using ThinkEMR_Care.DataAccess.Models.Authentication.CustomData;
 using ThinkEMR_Care.DataAccess.Models.Authentication.Login;
 using ThinkEMR_Care.DataAccess.Models.Authentication.SignUp;
 using ThinkEMR_Care.DataAccess.Models.EmailConfig;
@@ -22,12 +23,12 @@ namespace ThinkEMR_Care.DataAccess.Repository
 {
     public class AuthenticationRepository : IAuthenticationRepository
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IEmail _email;
 
-        public AuthenticationRepository(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IEmail email)
+        public AuthenticationRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IEmail email)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -45,7 +46,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
                     return "User Already Exist";
                 }
             }
-            IdentityUser user = new()
+            ApplicationUser user = new()
             {
                 UserName = registerUser.UserName,
                 Email = registerUser.Email,

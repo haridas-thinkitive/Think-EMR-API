@@ -12,10 +12,22 @@ namespace ThinkEMR_Care.DataAccess.Models.Authentication.SignUp
         [Required(ErrorMessage = "User Name Requried")]
         public string? UserName { get; set; }
 
-        [Required(ErrorMessage = "Email Name Requried")]
+        [Required(ErrorMessage = "Email Requried")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Password Name Requried")]
+        [Required(ErrorMessage = "Password  Requried")]
         public string? Password { get; set; }
+
+        [Required(ErrorMessage = "Name Requried")]
+        public string? FirstName { get; set; }
+
+        [Required(ErrorMessage = "User LastName Requried")]
+        public string? LastName { get; set; }
+        public string? ContactNumber { get; set; }
+        public DateTime LastLogin { get; set; }
+        public bool Status { get; set; }
+        public bool IsDeleted { get; set; }
+        public string? ProfileImage { get; set; }
+        public string Role { get; set; }
     }
 }

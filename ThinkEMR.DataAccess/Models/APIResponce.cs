@@ -15,5 +15,8 @@ namespace ThinkEMR_Care.DataAccess.Models
         public int StatusCode { get; set; }
 
         public T? Responce { get; set; }
+
+        public string? CurrentUserNmae { get; set; }
+
     }
 }
