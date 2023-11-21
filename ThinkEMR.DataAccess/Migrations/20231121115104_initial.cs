@@ -8,11 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-    public partial class initial2 : Migration
-========
-    public partial class emrv2 : Migration
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,6 +57,29 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BasicAccountProfileData",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AreaOfFocus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HospitalAffilation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AgeGroupSeen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LanguagesSpoken = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderEmploymentReferralNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AcceptNewPatients = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AcceptCashPay = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InsuranceVerification = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderBio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpertiseIn = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkExperience = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BasicAccountProfileData", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -323,6 +342,30 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StaffUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StaffUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tblRole",
                 columns: table => new
                 {
@@ -456,6 +499,46 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProviderUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProviderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LicensedStates = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    YearOfExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OfficeFaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LicenseNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxonomyNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NPINumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GroupNPINumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InsurancesAccepted = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkLocations = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BasicAccountProfileId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProviderUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProviderUsers_BasicAccountProfileData_BasicAccountProfileId",
+                        column: x => x.BasicAccountProfileId,
+                        principalTable: "BasicAccountProfileData",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
                 {
@@ -498,11 +581,7 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-                name: "ProviderGroupProfiles",
-========
                 name: "ProviderGroupProfile",
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -527,34 +606,20 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-                    table.PrimaryKey("PK_ProviderGroupProfiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProviderGroupProfiles_BillingAddress_BillingAddressId",
-========
                     table.PrimaryKey("PK_ProviderGroupProfile", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProviderGroupProfile_BillingAddress_BillingAddressId",
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                         column: x => x.BillingAddressId,
                         principalTable: "BillingAddress",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-                        name: "FK_ProviderGroupProfiles_PhysicalAddress_PhysicalAddressId",
-========
                         name: "FK_ProviderGroupProfile_PhysicalAddress_PhysicalAddressId",
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                         column: x => x.PhysicalAddressId,
                         principalTable: "PhysicalAddress",
                         principalColumn: "Id");
                     table.ForeignKey(
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-                        name: "FK_ProviderGroupProfiles_PracticeOfficeHours_PracticeOfficeHoursId",
-========
                         name: "FK_ProviderGroupProfile_PracticeOfficeHours_PracticeOfficeHoursId",
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                         column: x => x.PracticeOfficeHoursId,
                         principalTable: "PracticeOfficeHours",
                         principalColumn: "Id",
@@ -612,13 +677,8 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-                    { "6a3fd02f-b4b0-4401-94d1-8e3514e5016b", "2", "Admin", "Admin1" },
-                    { "ed5e80a8-9ebd-4c07-8cd4-9d829d39633d", "1", "SuperAdmin", "SuperAdmin" }
-========
-                    { "1423d735-dd8a-4bba-abcc-b35793200c35", "1", "SuperAdmin", "SuperAdmin" },
-                    { "1b5a78de-eef9-4c55-a0ca-4ca286afaf8e", "2", "Admin", "Admin1" }
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
+                    { "3123d5bb-b83f-4b99-b958-ca1803e3818b", "1", "SuperAdmin", "SuperAdmin" },
+                    { "a4ef9766-6f01-423a-98e4-7106178bdcf4", "2", "Admin", "Admin1" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -676,20 +736,6 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 column: "PracticeOfficeHoursId");
 
             migrationBuilder.CreateIndex(
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-                name: "IX_ProviderGroupProfiles_BillingAddressId",
-                table: "ProviderGroupProfiles",
-                column: "BillingAddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProviderGroupProfiles_PhysicalAddressId",
-                table: "ProviderGroupProfiles",
-                column: "PhysicalAddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProviderGroupProfiles_PracticeOfficeHoursId",
-                table: "ProviderGroupProfiles",
-========
                 name: "IX_ProviderGroupProfile_BillingAddressId",
                 table: "ProviderGroupProfile",
                 column: "BillingAddressId");
@@ -702,8 +748,12 @@ namespace ThinkEMR_Care.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProviderGroupProfile_PracticeOfficeHoursId",
                 table: "ProviderGroupProfile",
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                 column: "PracticeOfficeHoursId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProviderUsers_BasicAccountProfileId",
+                table: "ProviderUsers",
+                column: "BasicAccountProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblPermission_RoleTypeId",
@@ -768,11 +818,13 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 name: "LOINCCodeCatalogs");
 
             migrationBuilder.DropTable(
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
-                name: "ProviderGroupProfiles");
-========
                 name: "ProviderGroupProfile");
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
+
+            migrationBuilder.DropTable(
+                name: "ProviderUsers");
+
+            migrationBuilder.DropTable(
+                name: "StaffUsers");
 
             migrationBuilder.DropTable(
                 name: "tblRolePermission");
@@ -797,6 +849,9 @@ namespace ThinkEMR_Care.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "PracticeOfficeHours");
+
+            migrationBuilder.DropTable(
+                name: "BasicAccountProfileData");
 
             migrationBuilder.DropTable(
                 name: "tblPermission");

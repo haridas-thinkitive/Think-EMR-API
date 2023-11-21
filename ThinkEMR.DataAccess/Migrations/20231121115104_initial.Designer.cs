@@ -12,13 +12,8 @@ using ThinkEMR_Care.DataAccess.Data;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
-    [Migration("20231110113100_initial2")]
-    partial class initial2
-========
-    [Migration("20231120074349_providerId")]
-    partial class providerId
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
+    [Migration("20231121115104_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,22 +54,14 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
-                            Id = "ed5e80a8-9ebd-4c07-8cd4-9d829d39633d",
-========
-                            Id = "a9b85bd5-7099-4b6a-bb6b-7a3f49299180",
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
+                            Id = "3123d5bb-b83f-4b99-b958-ca1803e3818b",
                             ConcurrencyStamp = "1",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
-                            Id = "6a3fd02f-b4b0-4401-94d1-8e3514e5016b",
-========
-                            Id = "ea0b5a3b-e3a5-4eac-8036-bab2a3a6af88",
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
+                            Id = "a4ef9766-6f01-423a-98e4-7106178bdcf4",
                             ConcurrencyStamp = "2",
                             Name = "Admin",
                             NormalizedName = "Admin1"
@@ -207,7 +194,6 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.ToTable("tblRole");
                 });
 
-<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Authentication.CustomData.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -294,7 +280,8 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-========
+                });
+
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.BasicAccountProfileData", b =>
                 {
                     b.Property<int>("Id")
@@ -350,7 +337,6 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BasicAccountProfileData");
->>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.BillingAddress", b =>
