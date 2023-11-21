@@ -55,5 +55,27 @@ namespace ThinkEMR_Care.API.Controllers
             var result = await _usersServices.DeleteStaffUsers(id);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Provider User
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpGet]
+        [Route("/GetProviderUsers")]
+        public async Task<ActionResult<List<ProviderUser>>> GetProviderUsers()
+        {
+            var result = await _usersServices.GetProviderUsers();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("/AddProviderUsers")]
+        public async Task<ActionResult<ProviderUser>> AddProviderUsers(ProviderUser providerUser)
+        {
+            var result = await _usersServices.AddProviderUsers(providerUser);
+            return Ok(result);
+        }
+
     }
 }

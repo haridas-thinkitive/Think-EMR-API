@@ -11,7 +11,7 @@ namespace ThinkEMR_Care.DataAccess.Models
     {
         [Key]
         public int Id { get; set; }
-        public string ProviderId { get; set; }
+        public string? ProviderId { get; set; }
         public string? Image { get; set; }
         public string ProviderType { get; set; }
         public string FirstName { get; set; }
@@ -38,6 +38,7 @@ namespace ThinkEMR_Care.DataAccess.Models
     }
     public class BasicAccountProfileData
     {
+        [Key]
         public int Id { get; set; }
         public string AreaOfFocus { get; set; }
         public string HospitalAffilation { get; set; }

@@ -14,5 +14,13 @@ namespace ThinkEMR_Care.Core.Services.Interface
         Task<StaffUser> GetStaffUsersById(int id);
         Task<StaffUser> EditStaffUsers(int id, StaffUser staffUser);
         Task<StaffUser> DeleteStaffUsers(int id);
+
+        /// <summary>
+        /// Provider users
+        /// </summary>
+        /// <returns></returns>
+        
+        Task<List<ProviderUser>> GetProviderUsers();
+        Task<ProviderUser> AddProviderUsers(ProviderUser providerUser);
     }
 }
