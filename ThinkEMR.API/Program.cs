@@ -9,6 +9,7 @@ using ThinkEMR_Care.Core.Services;
 using ThinkEMR_Care.Core.Services.Interface;
 using ThinkEMR_Care.DataAccess.Data;
 using ThinkEMR_Care.DataAccess.Models;
+using ThinkEMR_Care.DataAccess.Models.Authentication.CustomData;
 using ThinkEMR_Care.DataAccess.Repository;
 using ThinkEMR_Care.DataAccess.Repository.Interface;
 
@@ -131,7 +132,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 });
 
 //For Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 

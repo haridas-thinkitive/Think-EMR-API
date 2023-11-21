@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ThinkEMR_Care.Core.Services.Interface;
 using ThinkEMR_Care.DataAccess.Models;
+using ThinkEMR_Care.DataAccess.Models.Authentication.CustomData;
 using ThinkEMR_Care.DataAccess.Models.Authentication.Login;
 using ThinkEMR_Care.DataAccess.Models.Authentication.SignUp;
 
@@ -18,12 +19,12 @@ namespace ThinkEMR_Care.Core.Services
 {
     public class UserManagementService : IUserManagement
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IEmailSMTP _email;
 
-        public UserManagementService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IEmailSMTP email)
+        public UserManagementService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IEmailSMTP email)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -31,7 +32,12 @@ namespace ThinkEMR_Care.Core.Services
             _email = email;
 
         }
-
+        /// <summary>
+        /// User Registration
+        /// </summary>
+        /// <param name="registerUser"></param>
+        /// <param name="Role"></param>
+        /// <returns></returns>
         public async Task<APIResponce<string>> RegisterUser(RegisterUser registerUser, string Role)
         {
            try
@@ -42,11 +48,13 @@ namespace ThinkEMR_Care.Core.Services
                     return new APIResponce<string> { IsSuccess = false, StatusCode = 403, Message = "User Already Exist" };
                 }
 
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = registerUser.UserName,
                     Email = registerUser.Email,
                     SecurityStamp = Guid.NewGuid().ToString()
+                    
+
                 };
 
                 if (await _roleManager.RoleExistsAsync(Role))
@@ -70,7 +78,11 @@ namespace ThinkEMR_Care.Core.Services
            }
 
         }
-
+        /// <summary>
+        /// User Loing
+        /// </summary>
+        /// <param name="loginModel"></param>
+        /// <returns></returns>
         public  async Task<APIResponce<string>> LoginUser(LoginModel loginModel)
         {
             try
@@ -81,8 +93,10 @@ namespace ThinkEMR_Care.Core.Services
                     return new APIResponce<string> { IsSuccess = false, StatusCode = 500, Message = "Incorrect UserName And Password" };
                 }
                 else
-                { 
-                        var authClaims = new List<Claim>
+                {
+                    await UpdateLastLoginAsync(user);
+
+                    var authClaims = new List<Claim>
                         {
                         new Claim(ClaimTypes.Name, user.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
@@ -93,7 +107,7 @@ namespace ThinkEMR_Care.Core.Services
                             authClaims.Add(new Claim(ClaimTypes.Role, role));
                         }
                         var jwtToken = GetJwtToken(authClaims);
-                        return new APIResponce<string> { IsSuccess = true, StatusCode = 200, Responce = jwtToken };
+                        return new APIResponce<string> { IsSuccess = true, StatusCode = 200, Responce = jwtToken, CurrentUserNmae = user.UserName };
                 }
 
             }
@@ -101,6 +115,11 @@ namespace ThinkEMR_Care.Core.Services
             {
                 throw ex;
             }
+        }
+        private async Task UpdateLastLoginAsync(ApplicationUser user)
+        {
+            user.LastLogin = DateTime.Now;
+            await _userManager.UpdateAsync(user);
         }
 
         private string GetJwtToken(List<Claim> authClaims)

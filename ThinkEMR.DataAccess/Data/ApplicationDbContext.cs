@@ -7,10 +7,11 @@ using System.Data;
 using System.Security;
 using ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility;
 using Role_And_Permission.Roles_and_Responsibility;
+using ThinkEMR_Care.DataAccess.Models.Authentication.CustomData;
 
 namespace ThinkEMR_Care.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
