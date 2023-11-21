@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
     public partial class initial2 : Migration
+========
+    public partial class emrv2 : Migration
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -494,7 +498,11 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
                 name: "ProviderGroupProfiles",
+========
+                name: "ProviderGroupProfile",
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -519,20 +527,34 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
                     table.PrimaryKey("PK_ProviderGroupProfiles", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProviderGroupProfiles_BillingAddress_BillingAddressId",
+========
+                    table.PrimaryKey("PK_ProviderGroupProfile", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProviderGroupProfile_BillingAddress_BillingAddressId",
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                         column: x => x.BillingAddressId,
                         principalTable: "BillingAddress",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
                         name: "FK_ProviderGroupProfiles_PhysicalAddress_PhysicalAddressId",
+========
+                        name: "FK_ProviderGroupProfile_PhysicalAddress_PhysicalAddressId",
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                         column: x => x.PhysicalAddressId,
                         principalTable: "PhysicalAddress",
                         principalColumn: "Id");
                     table.ForeignKey(
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
                         name: "FK_ProviderGroupProfiles_PracticeOfficeHours_PracticeOfficeHoursId",
+========
+                        name: "FK_ProviderGroupProfile_PracticeOfficeHours_PracticeOfficeHoursId",
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                         column: x => x.PracticeOfficeHoursId,
                         principalTable: "PracticeOfficeHours",
                         principalColumn: "Id",
@@ -590,8 +612,13 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
                     { "6a3fd02f-b4b0-4401-94d1-8e3514e5016b", "2", "Admin", "Admin1" },
                     { "ed5e80a8-9ebd-4c07-8cd4-9d829d39633d", "1", "SuperAdmin", "SuperAdmin" }
+========
+                    { "1423d735-dd8a-4bba-abcc-b35793200c35", "1", "SuperAdmin", "SuperAdmin" },
+                    { "1b5a78de-eef9-4c55-a0ca-4ca286afaf8e", "2", "Admin", "Admin1" }
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                 });
 
             migrationBuilder.CreateIndex(
@@ -649,6 +676,7 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 column: "PracticeOfficeHoursId");
 
             migrationBuilder.CreateIndex(
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
                 name: "IX_ProviderGroupProfiles_BillingAddressId",
                 table: "ProviderGroupProfiles",
                 column: "BillingAddressId");
@@ -661,6 +689,20 @@ namespace ThinkEMR_Care.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProviderGroupProfiles_PracticeOfficeHoursId",
                 table: "ProviderGroupProfiles",
+========
+                name: "IX_ProviderGroupProfile_BillingAddressId",
+                table: "ProviderGroupProfile",
+                column: "BillingAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProviderGroupProfile_PhysicalAddressId",
+                table: "ProviderGroupProfile",
+                column: "PhysicalAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProviderGroupProfile_PracticeOfficeHoursId",
+                table: "ProviderGroupProfile",
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
                 column: "PracticeOfficeHoursId");
 
             migrationBuilder.CreateIndex(
@@ -726,7 +768,11 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 name: "LOINCCodeCatalogs");
 
             migrationBuilder.DropTable(
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.cs
                 name: "ProviderGroupProfiles");
+========
+                name: "ProviderGroupProfile");
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231103092715_emrv2.cs
 
             migrationBuilder.DropTable(
                 name: "tblRolePermission");

@@ -12,8 +12,13 @@ using ThinkEMR_Care.DataAccess.Data;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
     [Migration("20231110113100_initial2")]
     partial class initial2
+========
+    [Migration("20231120074349_providerId")]
+    partial class providerId
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,14 +59,22 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasData(
                         new
                         {
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
                             Id = "ed5e80a8-9ebd-4c07-8cd4-9d829d39633d",
+========
+                            Id = "a9b85bd5-7099-4b6a-bb6b-7a3f49299180",
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
                             ConcurrencyStamp = "1",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
                             Id = "6a3fd02f-b4b0-4401-94d1-8e3514e5016b",
+========
+                            Id = "ea0b5a3b-e3a5-4eac-8036-bab2a3a6af88",
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
                             ConcurrencyStamp = "2",
                             Name = "Admin",
                             NormalizedName = "Admin1"
@@ -194,6 +207,7 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.ToTable("tblRole");
                 });
 
+<<<<<<<< HEAD:ThinkEMR.DataAccess/Migrations/20231110113100_initial2.Designer.cs
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Authentication.CustomData.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -280,6 +294,63 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+========
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.BasicAccountProfileData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AcceptCashPay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AcceptNewPatients")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AgeGroupSeen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AreaOfFocus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExpertiseIn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HospitalAffilation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InsuranceVerification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguagesSpoken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderBio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderEmploymentReferralNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BasicAccountProfileData");
+>>>>>>>> Development:ThinkEMR.DataAccess/Migrations/20231120074349_providerId.Designer.cs
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.BillingAddress", b =>
@@ -908,7 +979,103 @@ namespace ThinkEMR_Care.DataAccess.Migrations
 
                     b.HasIndex("PracticeOfficeHoursId");
 
-                    b.ToTable("ProviderGroupProfiles");
+                    b.ToTable("ProviderGroupProfile");
+                });
+
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.ProviderUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BasicAccountProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupNPINumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InsurancesAccepted")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LicenseNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LicensedStates")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NPINumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfficeFaxNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TaxonomyNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WorkLocations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YearOfExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasicAccountProfileId");
+
+                    b.ToTable("ProviderUsers");
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.Permission", b =>
@@ -970,6 +1137,60 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasKey("RoleTypeId");
 
                     b.ToTable("tblRoleType");
+                });
+
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.StaffUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StaffUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1075,6 +1296,17 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.Navigation("PhysicalAddress");
 
                     b.Navigation("PracticeOfficeHours");
+                });
+
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.ProviderUser", b =>
+                {
+                    b.HasOne("ThinkEMR_Care.DataAccess.Models.BasicAccountProfileData", "BasicAccountProfile")
+                        .WithMany()
+                        .HasForeignKey("BasicAccountProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BasicAccountProfile");
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.Permission", b =>
