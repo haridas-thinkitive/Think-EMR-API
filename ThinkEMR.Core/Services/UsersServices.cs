@@ -43,5 +43,20 @@ namespace ThinkEMR_Care.Core.Services
             return await _usersRepository.DeleteStaffUsers(id);
         }
 
+        /// <summary>
+        /// Provider Users
+        /// </summary>
+        /// <returns></returns>
+
+        public async Task<List<ProviderUser>> GetProviderUsers()
+        {
+            return await _usersRepository.GetProviderUsers();
+        }
+
+        public async Task<ProviderUser> AddProviderUsers(ProviderUser providerUser)
+        {
+            return await _usersRepository.AddProviderUsers(providerUser);
+        }
+
     }
 }

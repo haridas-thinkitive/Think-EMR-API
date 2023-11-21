@@ -108,5 +108,31 @@ namespace ThinkEMR_Care.DataAccess.Repository
                 throw;
             }
         }
+
+        public async Task<List<ProviderUser>> GetProviderUsers()
+        {
+            try
+            {
+                return await _context.ProviderUsers.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<ProviderUser> AddProviderUsers(ProviderUser providerUser)
+        {
+            try
+            {
+                _context.ProviderUsers.Add(providerUser);
+                await _context.SaveChangesAsync();
+                return providerUser;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
