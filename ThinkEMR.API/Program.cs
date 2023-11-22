@@ -156,9 +156,10 @@ if (app.Environment.IsDevelopment())
 app.UseCors(options => options
 .WithOrigins("http://localhost:7084")
 .AllowAnyMethod()
-.AllowCredentials()
 .AllowAnyHeader()
-
+.AllowCredentials()
+.SetIsOriginAllowed((Host) => true)
+.WithExposedHeaders("Content-Disposition")
 );
 
 app.UseHttpsRedirection();
