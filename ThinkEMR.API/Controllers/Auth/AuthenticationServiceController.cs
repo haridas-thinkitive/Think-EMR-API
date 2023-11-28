@@ -452,6 +452,8 @@ namespace ThinkEMR_Care.API.Controllers.Auth
                 throw ex;
             }
         }
+        // Sonar Test
+
 
     }
 
