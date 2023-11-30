@@ -38,14 +38,14 @@ namespace ThinkEMR_Care.Core.Services
         /// <param name="registerUser"></param>
         /// <param name="Role"></param>
         /// <returns></returns>
-        public async Task<APIResponce<string>> RegisterUser(RegisterUser registerUser, string Role)
+        public async Task<ApiResponse<string>> RegisterUser(RegisterUser registerUser, string Role)
         {
            try
             {
                 var userExist = await _userManager.FindByNameAsync(registerUser.Email);
                 if (userExist != null)
                 {
-                    return new APIResponce<string> { IsSuccess = false, StatusCode = 403, Message = "User Already Exist" };
+                    return new ApiResponse<string> { IsSuccess = false, StatusCode = 403, Message = "User Already Exist" };
                 }
 
                 ApplicationUser user = new ApplicationUser
@@ -62,14 +62,14 @@ namespace ThinkEMR_Care.Core.Services
                     var result = await _userManager.CreateAsync(user, registerUser.Password);
                     if (!result.Succeeded)
                     {
-                        return new APIResponce<string> { IsSuccess = false, StatusCode = 500, Message = "User failed To Create" };
+                        return new ApiResponse<string> { IsSuccess = false, StatusCode = 500, Message = "User failed To Create" };
                     }
                     await _userManager.AddToRoleAsync(user, Role);
-                    return new APIResponce<string> { IsSuccess = true, StatusCode = 200, Message = "User Created Successfully" };
+                    return new ApiResponse<string> { IsSuccess = true, StatusCode = 200, Message = "User Created Successfully" };
                 }
                 else
                 {
-                    return new APIResponce<string> { IsSuccess = false, StatusCode = 500, Message = "User Role Doesnot Exit.." };
+                    return new ApiResponse<string> { IsSuccess = false, StatusCode = 500, Message = "User Role Doesnot Exit.." };
 
                 }
            }catch(Exception ex)
@@ -83,14 +83,14 @@ namespace ThinkEMR_Care.Core.Services
         /// </summary>
         /// <param name="loginModel"></param>
         /// <returns></returns>
-        public  async Task<APIResponce<string>> LoginUser(LoginModel loginModel)
+        public  async Task<ApiResponse<string>> LoginUser(LoginModel loginModel)
         {
             try
             {
                 var user = await _userManager.FindByNameAsync(loginModel.UserName);
                 if (user == null || (user.UserName != loginModel.UserName || !await _userManager.CheckPasswordAsync(user, loginModel.Password)))
                 {
-                    return new APIResponce<string> { IsSuccess = false, StatusCode = 500, Message = "Incorrect UserName And Password" };
+                    return new ApiResponse<string> { IsSuccess = false, StatusCode = 500, Message = "Incorrect UserName And Password" };
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace ThinkEMR_Care.Core.Services
                             authClaims.Add(new Claim(ClaimTypes.Role, role));
                         }
                         var jwtToken = GetJwtToken(authClaims);
-                        return new APIResponce<string> { IsSuccess = true, StatusCode = 200, Responce = jwtToken, CurrentUserNmae = user.UserName };
+                        return new ApiResponse<string> { IsSuccess = true, StatusCode = 200, Response = jwtToken, CurrentUserNmae = user.UserName };
                 }
 
             }

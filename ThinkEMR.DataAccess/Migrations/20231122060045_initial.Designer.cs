@@ -12,7 +12,7 @@ using ThinkEMR_Care.DataAccess.Data;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231121115104_initial")]
+    [Migration("20231122060045_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -54,14 +54,14 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3123d5bb-b83f-4b99-b958-ca1803e3818b",
+                            Id = "2392ee16-880c-4144-926f-54568fa2a2ca",
                             ConcurrencyStamp = "1",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "a4ef9766-6f01-423a-98e4-7106178bdcf4",
+                            Id = "30f8198a-e6e3-4b12-b319-8383e00a89d4",
                             ConcurrencyStamp = "2",
                             Name = "Admin",
                             NormalizedName = "Admin1"

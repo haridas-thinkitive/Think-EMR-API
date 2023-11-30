@@ -677,8 +677,8 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3123d5bb-b83f-4b99-b958-ca1803e3818b", "1", "SuperAdmin", "SuperAdmin" },
-                    { "a4ef9766-6f01-423a-98e4-7106178bdcf4", "2", "Admin", "Admin1" }
+                    { "2392ee16-880c-4144-926f-54568fa2a2ca", "1", "SuperAdmin", "SuperAdmin" },
+                    { "30f8198a-e6e3-4b12-b319-8383e00a89d4", "2", "Admin", "Admin1" }
                 });
 
             migrationBuilder.CreateIndex(
