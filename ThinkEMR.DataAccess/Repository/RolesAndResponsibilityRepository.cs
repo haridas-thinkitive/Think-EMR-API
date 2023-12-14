@@ -45,7 +45,7 @@ namespace ThinkEMR_Care.DataAccess.Repository
             }
         }
 
-        public async Task<List<RoleTypes>> GetRoleTypes()
+        public async Task<List<RoleType>> GetRoleTypes()
         {
             var roleType = await _context.RoleTypes.ToListAsync();
             try

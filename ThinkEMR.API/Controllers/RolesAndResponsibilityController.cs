@@ -66,7 +66,7 @@ namespace ThinkEMR_Care.API.Controllers
 
         [HttpGet]
         [Route("/GetRoleTypes")]
-        public async Task<ActionResult<List<RoleTypes>>> GetRoleTypes()
+        public async Task<ActionResult<List<RoleType>>> GetRoleTypes()
         {
             var roleTypes = await _rolesAndResponsibilityService.GetRoleTypes();
             if (roleTypes == null)
