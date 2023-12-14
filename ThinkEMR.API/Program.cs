@@ -82,11 +82,10 @@ builder.Services.AddScoped<IICD10CodeCatalogServices , ICD10CodeCatalogServices>
 builder.Services.AddScoped<ILOINCCodeRepository, LOINCCodeRepository>();
 builder.Services.AddScoped<ILOINCCodeServices, LOINCCodeServices>();
 
-//Vishal
-builder.Services.AddScoped<IRolesAndResponsibilityRepository, RolesAndResponsibilityRepository>();
-builder.Services.AddScoped<IRolesAndResponsibilityService, RolesAndResponsibilityService>();
 
 //Anup
+builder.Services.AddScoped<IRolesAndResponsibilityRepository, RolesAndResponsibilityRepository>();
+builder.Services.AddScoped<IRolesAndResponsibilityService, RolesAndResponsibilityService>();
 
 builder.Services.AddScoped<IProviderGroupsRepository , ProviderGroupsRepository>();
 builder.Services.AddScoped<IProviderGroupsService , ProviderGroupsService>();
