@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class RolesAndResponsibility : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -305,6 +305,21 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Permissions",
+                columns: table => new
+                {
+                    PermissionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PermissionName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permissions", x => x.PermissionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PhysicalAddress",
                 columns: table => new
                 {
@@ -342,6 +357,19 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoleTypes",
+                columns: table => new
+                {
+                    RoleTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleTypes", x => x.RoleTypeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StaffUsers",
                 columns: table => new
                 {
@@ -363,33 +391,6 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StaffUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tblRole",
-                columns: table => new
-                {
-                    RoleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleTypeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tblRole", x => x.RoleId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tblRoleType",
-                columns: table => new
-                {
-                    RoleTypeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tblRoleType", x => x.RoleTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -627,48 +628,28 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tblPermission",
+                name: "RolePermissions",
                 columns: table => new
                 {
-                    PermissionId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleTypeId = table.Column<int>(type: "int", nullable: false),
-                    PermissionName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PermissionDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PermissionStatus = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tblPermission", x => x.PermissionId);
-                    table.ForeignKey(
-                        name: "FK_tblPermission_tblRoleType_RoleTypeId",
-                        column: x => x.RoleTypeId,
-                        principalTable: "tblRoleType",
-                        principalColumn: "RoleTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tblRolePermission",
-                columns: table => new
-                {
-                    RoleId = table.Column<int>(type: "int", nullable: false),
                     PermissionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tblRolePermission", x => new { x.RoleId, x.PermissionId });
+                    table.PrimaryKey("PK_RolePermissions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tblRolePermission_tblPermission_PermissionId",
+                        name: "FK_RolePermissions_Permissions_PermissionId",
                         column: x => x.PermissionId,
-                        principalTable: "tblPermission",
+                        principalTable: "Permissions",
                         principalColumn: "PermissionId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tblRolePermission_tblRole_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "tblRole",
-                        principalColumn: "RoleId",
+                        name: "FK_RolePermissions_RoleTypes_RoleTypeId",
+                        column: x => x.RoleTypeId,
+                        principalTable: "RoleTypes",
+                        principalColumn: "RoleTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -677,8 +658,8 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2392ee16-880c-4144-926f-54568fa2a2ca", "1", "SuperAdmin", "SuperAdmin" },
-                    { "30f8198a-e6e3-4b12-b319-8383e00a89d4", "2", "Admin", "Admin1" }
+                    { "941640c3-a1b6-4a55-afea-dfc1dc87a82c", "1", "SuperAdmin", "SuperAdmin" },
+                    { "cd478785-adbf-4cfc-b902-a92ab7e38867", "2", "Admin", "Admin1" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -756,14 +737,14 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 column: "BasicAccountProfileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblPermission_RoleTypeId",
-                table: "tblPermission",
-                column: "RoleTypeId");
+                name: "IX_RolePermissions_PermissionId",
+                table: "RolePermissions",
+                column: "PermissionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblRolePermission_PermissionId",
-                table: "tblRolePermission",
-                column: "PermissionId");
+                name: "IX_RolePermissions_RoleTypeId",
+                table: "RolePermissions",
+                column: "RoleTypeId");
         }
 
         /// <inheritdoc />
@@ -824,10 +805,10 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 name: "ProviderUsers");
 
             migrationBuilder.DropTable(
-                name: "StaffUsers");
+                name: "RolePermissions");
 
             migrationBuilder.DropTable(
-                name: "tblRolePermission");
+                name: "StaffUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -854,13 +835,10 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                 name: "BasicAccountProfileData");
 
             migrationBuilder.DropTable(
-                name: "tblPermission");
+                name: "Permissions");
 
             migrationBuilder.DropTable(
-                name: "tblRole");
-
-            migrationBuilder.DropTable(
-                name: "tblRoleType");
+                name: "RoleTypes");
         }
     }
 }

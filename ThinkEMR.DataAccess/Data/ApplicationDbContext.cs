@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ThinkEMR_Care.DataAccess.Models;
 using ThinkEMR_Care.DataAccess.Models.MasterPageModels;
-using System.Data;
-using System.Security;
 using ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility;
-using Role_And_Permission.Roles_and_Responsibility;
 using ThinkEMR_Care.DataAccess.Models.Authentication.CustomData;
+using ThinkEMR_Care.DataAccess.Models.RolesAndResponsibility;
 
 namespace ThinkEMR_Care.DataAccess.Data
 {
@@ -20,8 +18,31 @@ namespace ThinkEMR_Care.DataAccess.Data
             base.OnModelCreating(builder);
             ConfigureProviderGroupProfile(builder);
             SendRoles(builder);
+
+            //builder.Entity<RoleUser>().HasNoKey();
+
             //SeedPermissionHelperData(builder);
-            RolePermissionData(builder);
+            //RolePermissionData(builder);
+
+            /* builder.Entity<RolePermission>()
+         .HasKey(rp => rp.Id);
+
+             builder.Entity<RolePermission>()
+                 .HasOne(rp => rp.RoleTypeId)
+                 .WithMany()
+                 .HasForeignKey(rp => new { rp.RoleTypeId})
+                 .OnDelete(DeleteBehavior.Restrict); // Adjust delete behavior if needed
+
+             builder.Entity<RolePermission>()
+                 .HasOne(rp => rp.Permission)
+                 .WithMany()
+                 .HasForeignKey(rp => new { rp.Id })
+                 .OnDelete(DeleteBehavior.Restrict); // Adjust delete behavior if needed
+
+             // Other entity configurations...
+
+             base.OnModelCreating(builder);*/
+
         }
 
         private void ConfigureProviderGroupProfile(ModelBuilder builder)
@@ -31,6 +52,8 @@ namespace ThinkEMR_Care.DataAccess.Data
                 .WithMany()
                 .HasForeignKey(p => p.PhysicalAddressId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+           
         }
 
         /* protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,16 +67,7 @@ namespace ThinkEMR_Care.DataAccess.Data
              base.OnModelCreating(modelBuilder);
          }*/
 
-        public DbSet<ProviderGroupProfile> providerGroupProfiles { get; set; }
-        public DbSet<PhysicalAddress> PhysicalAddress { get; set; }
-        public DbSet<BillingAddress> BillingAddress { get; set; }
-        public DbSet<PracticeOfficeHours> PracticeOfficeHours { get; set; }
-        public DbSet<LocationsPhysicalAddress> LocationsPhysicalAddress { get; set; }
-        public DbSet<LocationsBillingAddress> LocationsBillingAddress { get; set; }
-        public DbSet<StaffUser> StaffUsers { get; set; }
-        public DbSet<ProviderUser> ProviderUsers { get; set; }
-        public DbSet<BasicAccountProfileData> BasicAccountProfileData { get; set; }
-
+       
 
         private void SendRoles(ModelBuilder builder)
         {
@@ -75,30 +89,28 @@ namespace ThinkEMR_Care.DataAccess.Data
         //    );
         //}
 
-        private void RolePermissionData(ModelBuilder builder)
-        {
-            builder.Entity<RolePermission>()
-            .HasKey(rp => new { rp.RoleId, rp.PermissionId });
-
-            builder.Entity<RolePermission>()
-            .HasOne(rp => rp.Role)
-            .WithMany()
-            .HasForeignKey(rp => rp.RoleId); ;
-
-            builder.Entity<RolePermission>()
-            .HasOne(rp => rp.Permission)
-            .WithMany()
-            .HasForeignKey(rp => rp.PermissionId);
-            //SeedPermissionHelperData(builder);
-        }
+        
 
         public DbSet<Collaborator> Collaborators { get; set; }
         public DbSet<DashboardCount> DashboardCounts { get; set; }
         public DbSet<DashboardData> DashboardDatas { get; set; }
+
+        //Provider Groups
         public DbSet<ProviderGroupProfile> ProviderGroupProfiles { get; set; }
         public DbSet<Locations> Locations { get; set; }
         public DbSet<Departments> Departments { get; set; }
+        public DbSet<ProviderGroupProfile> providerGroupProfiles { get; set; }
+        public DbSet<PhysicalAddress> PhysicalAddress { get; set; }
+        public DbSet<BillingAddress> BillingAddress { get; set; }
+        public DbSet<PracticeOfficeHours> PracticeOfficeHours { get; set; }
+        public DbSet<LocationsPhysicalAddress> LocationsPhysicalAddress { get; set; }
+        public DbSet<LocationsBillingAddress> LocationsBillingAddress { get; set; }
+        public DbSet<StaffUser> StaffUsers { get; set; }
+        public DbSet<ProviderUser> ProviderUsers { get; set; }
+        public DbSet<BasicAccountProfileData> BasicAccountProfileData { get; set; }
 
+
+        //Master
         public DbSet<CPTCodeCatalog> CPTCodeCatalogs { get; set; }
         public DbSet<DataImport> DataImports { get; set; }
         public DbSet<HCPCSCodeCatalog> HCPCSCodeCatalogs { get; set; }
@@ -106,8 +118,9 @@ namespace ThinkEMR_Care.DataAccess.Data
         public DbSet<LOINCCodeCatalog> LOINCCodeCatalogs { get; set; }
         public DbSet<DrugCatalog> DrugCatalogs { get; set; }
 
-        public DbSet<RoleType> RoleTypes { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        //Roles and Resposibility
+        public DbSet<RoleTypes> RoleTypes { get; set; }
+        public DbSet<RoleUser> RoleUsers { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
 

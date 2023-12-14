@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThinkEMR_Care.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using ThinkEMR_Care.DataAccess.Data;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231201122642_RolesAndResponsibility")]
+    partial class RolesAndResponsibility
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,14 +54,14 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d08731ad-c873-418a-9e88-38a172ddaa17",
+                            Id = "941640c3-a1b6-4a55-afea-dfc1dc87a82c",
                             ConcurrencyStamp = "1",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "1de2a8cf-b408-484a-a445-575ca96596ad",
+                            Id = "cd478785-adbf-4cfc-b902-a92ab7e38867",
                             ConcurrencyStamp = "2",
                             Name = "Admin",
                             NormalizedName = "Admin1"
@@ -1039,29 +1042,6 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasIndex("BasicAccountProfileId");
 
                     b.ToTable("ProviderUsers");
-                });
-
-            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.RolesAndResponsibility.RoleUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SelectedPermissions")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RoleUsers");
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.Permission", b =>
