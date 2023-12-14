@@ -11,7 +11,7 @@ namespace ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility
 
         [ForeignKey("RoleType")]
         public int RoleTypeId { get; set; }
-        public RoleTypes RoleType { get; set; }
+        public RoleType RoleType { get; set; }
 
         [ForeignKey("Permission")]
         public int PermissionId { get; set; }

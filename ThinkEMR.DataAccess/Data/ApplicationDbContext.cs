@@ -18,31 +18,6 @@ namespace ThinkEMR_Care.DataAccess.Data
             base.OnModelCreating(builder);
             ConfigureProviderGroupProfile(builder);
             SendRoles(builder);
-
-            //builder.Entity<RoleUser>().HasNoKey();
-
-            //SeedPermissionHelperData(builder);
-            //RolePermissionData(builder);
-
-            /* builder.Entity<RolePermission>()
-         .HasKey(rp => rp.Id);
-
-             builder.Entity<RolePermission>()
-                 .HasOne(rp => rp.RoleTypeId)
-                 .WithMany()
-                 .HasForeignKey(rp => new { rp.RoleTypeId})
-                 .OnDelete(DeleteBehavior.Restrict); // Adjust delete behavior if needed
-
-             builder.Entity<RolePermission>()
-                 .HasOne(rp => rp.Permission)
-                 .WithMany()
-                 .HasForeignKey(rp => new { rp.Id })
-                 .OnDelete(DeleteBehavior.Restrict); // Adjust delete behavior if needed
-
-             // Other entity configurations...
-
-             base.OnModelCreating(builder);*/
-
         }
 
         private void ConfigureProviderGroupProfile(ModelBuilder builder)
@@ -56,19 +31,6 @@ namespace ThinkEMR_Care.DataAccess.Data
            
         }
 
-        /* protected override void OnModelCreating(ModelBuilder modelBuilder)
-         {
-             modelBuilder.Entity<ProviderGroupProfile>()
-                 .HasOne(p => p.PhysicalAddress)
-                 .WithMany()
-                 .HasForeignKey(p => p.PhysicalAddressId)
-                 .OnDelete(DeleteBehavior.NoAction);
-
-             base.OnModelCreating(modelBuilder);
-         }*/
-
-       
-
         private void SendRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(
@@ -76,20 +38,6 @@ namespace ThinkEMR_Care.DataAccess.Data
                 new IdentityRole() { Name = "Admin", NormalizedName = "Admin1", ConcurrencyStamp = "2" }
             );
         }
-
-        //private void SeedPermissionHelperData(ModelBuilder builder)
-        //{
-        //    builder.Entity<RoleType>().HasData
-        //    (
-        //        new RoleType() { RoleTypeId = 1, RoleTypeName = "Appointment" },
-        //        new RoleType() { RoleTypeId = 2, RoleTypeName = "Patient" },
-        //        new RoleType() { RoleTypeId = 3, RoleTypeName = "Specialist" },
-        //        new RoleType() { RoleTypeId = 4, RoleTypeName = "View To-Do List" },
-        //        new RoleType() { RoleTypeId = 5, RoleTypeName = "Settings" }
-        //    );
-        //}
-
-        
 
         public DbSet<Collaborator> Collaborators { get; set; }
         public DbSet<DashboardCount> DashboardCounts { get; set; }
@@ -119,7 +67,7 @@ namespace ThinkEMR_Care.DataAccess.Data
         public DbSet<DrugCatalog> DrugCatalogs { get; set; }
 
         //Roles and Resposibility
-        public DbSet<RoleTypes> RoleTypes { get; set; }
+        public DbSet<RoleType> RoleTypes { get; set; }
         public DbSet<RoleUser> RoleUsers { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }

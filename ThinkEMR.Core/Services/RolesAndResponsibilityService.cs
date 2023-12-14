@@ -31,7 +31,7 @@ namespace ThinkEMR_Care.Core.Services
             return await _rolesAndResponsibilityRepository.AddNewRole(roleUser);
         }
 
-        public async Task<List<RoleTypes>> GetRoleTypes()
+        public async Task<List<RoleType>> GetRoleTypes()
         {
             return await _rolesAndResponsibilityRepository.GetRoleTypes();
         }

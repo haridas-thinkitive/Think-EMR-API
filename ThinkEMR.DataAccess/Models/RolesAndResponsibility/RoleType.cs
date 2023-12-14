@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility
 {
     
-    public class RoleTypes
+    public class RoleType
     {
         [Key]
         public int RoleTypeId { get; set; }
