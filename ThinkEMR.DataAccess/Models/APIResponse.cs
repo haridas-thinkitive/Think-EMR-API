@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ThinkEMR_Care.DataAccess.Models
 {
-    public class APIResponce<T>
+    public class ApiResponse<T>
     {
         public bool IsSuccess { get; set; }
 
@@ -14,7 +14,7 @@ namespace ThinkEMR_Care.DataAccess.Models
 
         public int StatusCode { get; set; }
 
-        public T? Responce { get; set; }
+        public T? Response { get; set; }
 
         public string? CurrentUserNmae { get; set; }
 
