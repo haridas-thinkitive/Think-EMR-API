@@ -13,12 +13,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using ThinkEMR_Care.Core.Services.Interface;
+using ThinkEMR_Care.DataAccess.Data;
 using ThinkEMR_Care.DataAccess.Models;
 using ThinkEMR_Care.DataAccess.Models.Authentication.CustomData;
 using ThinkEMR_Care.DataAccess.Models.Authentication.Login;
 using ThinkEMR_Care.DataAccess.Models.Authentication.SignUp;
 using ThinkEMR_Care.DataAccess.Models.EmailConfig;
 using ThinkEMR_Care.DataAccess.Repository.Interface;
+using static System.Net.WebRequestMethods;
 
 namespace ThinkEMR_Care.API.Controllers.Auth
 {
@@ -30,13 +32,15 @@ namespace ThinkEMR_Care.API.Controllers.Auth
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IEmailSMTP _email;
+        private readonly ApplicationDbContext _context;
 
-        public AuthenticationServiceController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IEmailSMTP email)
+        public AuthenticationServiceController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IEmailSMTP email,ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _email = email;
+            _context = context;
 
         }
         /// <summary>
@@ -343,7 +347,7 @@ namespace ThinkEMR_Care.API.Controllers.Auth
         }
 
 
-       /// <summary>
+        /// <summary>
        /// Get All User 
        /// </summary>
        /// <returns></returns>
@@ -452,8 +456,91 @@ namespace ThinkEMR_Care.API.Controllers.Auth
                 throw ex;
             }
         }
-        // Sonar Test
 
+
+        /// <summary>
+        /// Send Notificaton To All User
+        /// </summary>
+        /// <returns></returns>
+        
+
+        [Authorize(Roles = "SuperAdmin", AuthenticationSchemes = "Bearer")]
+        [HttpPost("SendNotification")]
+        public async Task<IActionResult> SendNotification()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            if (users.Count != 0)
+            {
+                foreach (var user in users)
+                {
+                    var message = new Message(new string[] { user.Email }, $"Get ready for an enhanced experience!...{user.FirstName} {user.LastName}", "Explore new features, improvements, and bug fixes in our latest update. Update now and enjoy the improved ThinkEMR!");
+
+                    try
+                    {
+                        await _email.SendEmail(message);
+                        var notification = new Notification
+                        {
+                            UserId = user.Id,
+                            Message = "New Update Available",
+                            Timestamp = DateTime.Now,
+                            IsRead = false
+                        };
+
+                        await _context.notifications.AddAsync(notification);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                return StatusCode(StatusCodes.Status200OK, new Responce { status = "Success", Message = "Notification Sent To All Users Successfully" });
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, new Responce { status = "Error", Message = "Users not found" });
+        }
+
+        /// <summary>
+        /// Send Notification To particular User
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+
+        [Authorize(Roles = "SuperAdmin", AuthenticationSchemes = "Bearer")]
+        [HttpPost("SendNotificationToUser")]
+        public async Task<IActionResult> SendNotificationToUser(string Touser, string FromUser)
+        {
+            try
+            {
+                var Fromuser = await _userManager.FindByNameAsync(FromUser);
+                var user = await _userManager.FindByNameAsync(Touser);
+                if (user != null)
+                {
+                    var message = new Message(new string[] { user.Email }, $"Receive Message From  {Fromuser.FirstName} {Fromuser.LastName}", $"Login The Application and check {user.FirstName}..!");
+
+                    await _email.SendEmail(message);
+
+                    var notification = new Notification
+                    {
+                        UserId = user.Id,
+                        Message = $"Receive Notification From {Fromuser.FirstName } {Fromuser.LastName}",
+                        Timestamp = DateTime.Now,
+                        IsRead = false
+                    };
+
+                    await _context.notifications.AddAsync(notification);
+                    await _context.SaveChangesAsync();
+
+                    return StatusCode(StatusCodes.Status200OK, new Responce { status = "Success", Message = "Notification Sent To User Successfully" });
+                }
+
+                return StatusCode(StatusCodes.Status500InternalServerError, new Responce { status = "Error", Message = "User not found" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Responce { status = "Error", Message = $"An error occurred: {ex.Message}" });
+            }
+        }
 
     }
 

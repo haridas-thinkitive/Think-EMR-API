@@ -111,5 +111,7 @@ namespace ThinkEMR_Care.DataAccess.Data
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
 
+        public DbSet<Notification> notifications { get; set; }
+
     }
 }

@@ -58,8 +58,10 @@ builder.Services.AddScoped<IUserManagement, UserManagementService>();
 builder.Services.AddScoped<IDashboardDetailsCount,DashboardDetailsRepository>();
 builder.Services.AddScoped<IDashboardDetails, DashboardDetailsServices>();
 
-builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
+builder.Services.AddScoped<INotificationService,NotificationService>();
+builder.Services.AddScoped<INotificationRepository,NotificationRepository>();
+
+
 builder.Services.AddScoped<IEmailSMTP, EmailSMTPServices>();
 builder.Services.AddScoped<IEmail, EmailServices>();
 
