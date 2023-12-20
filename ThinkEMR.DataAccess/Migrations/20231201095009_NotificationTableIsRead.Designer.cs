@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThinkEMR_Care.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using ThinkEMR_Care.DataAccess.Data;
 namespace ThinkEMR_Care.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231201095009_NotificationTableIsRead")]
+    partial class NotificationTableIsRead
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,12 +54,14 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasData(
                         new
                         {
+                            Id = "5c189385-5427-405f-8a5f-f8d4bb14992e",
                             ConcurrencyStamp = "1",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
+                            Id = "6be307bb-20a2-42df-8a52-5b2cd6c9eb8b",
                             ConcurrencyStamp = "2",
                             Name = "Admin",
                             NormalizedName = "Admin1"
@@ -167,6 +172,26 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Role_And_Permission.Roles_and_Responsibility.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("tblRole");
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Authentication.CustomData.ApplicationUser", b =>
@@ -1066,29 +1091,6 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.ToTable("ProviderUsers");
                 });
 
-            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.RolesAndResponsibility.RoleUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SelectedPermissions")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RoleUsers");
-                });
-
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.Permission", b =>
                 {
                     b.Property<int>("PermissionId")
@@ -1097,7 +1099,7 @@ namespace ThinkEMR_Care.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PermissionId"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("PermissionDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1105,38 +1107,35 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Status")
+                    b.Property<bool>("PermissionStatus")
                         .HasColumnType("bit");
-
-                    b.HasKey("PermissionId");
-
-                    b.ToTable("Permissions");
-                });
-
-            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RolePermission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("int");
 
                     b.Property<int>("RoleTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("PermissionId");
+                    b.HasKey("PermissionId");
 
                     b.HasIndex("RoleTypeId");
 
-                    b.ToTable("RolePermissions");
+                    b.ToTable("tblPermission");
                 });
 
-            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RoleTypes", b =>
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RolePermission", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("tblRolePermission");
+                });
+
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RoleType", b =>
                 {
                     b.Property<int>("RoleTypeId")
                         .ValueGeneratedOnAdd()
@@ -1150,7 +1149,7 @@ namespace ThinkEMR_Care.DataAccess.Migrations
 
                     b.HasKey("RoleTypeId");
 
-                    b.ToTable("RoleTypes");
+                    b.ToTable("tblRoleType");
                 });
 
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.StaffUser", b =>
@@ -1323,6 +1322,15 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                     b.Navigation("BasicAccountProfile");
                 });
 
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.Permission", b =>
+                {
+                    b.HasOne("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RoleType", null)
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RolePermission", b =>
                 {
                     b.HasOne("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.Permission", "Permission")
@@ -1331,15 +1339,20 @@ namespace ThinkEMR_Care.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RoleTypes", "RoleType")
+                    b.HasOne("Role_And_Permission.Roles_and_Responsibility.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleTypeId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Permission");
 
-                    b.Navigation("RoleType");
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ThinkEMR_Care.DataAccess.Models.Roles_and_Responsibility.RoleType", b =>
+                {
+                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }
