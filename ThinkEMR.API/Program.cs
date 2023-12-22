@@ -155,7 +155,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(options => options
-.WithOrigins("http://localhost:7084")
+.WithOrigins("http://localhost:7084", "http://localhost:3001/")
 .AllowAnyMethod()
 .AllowAnyHeader()
 .AllowCredentials()

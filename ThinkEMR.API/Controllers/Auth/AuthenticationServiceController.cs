@@ -162,6 +162,8 @@ namespace ThinkEMR_Care.API.Controllers.Auth
             }
         }
 
+
+
         private JwtSecurityToken GetJwtToken(List<Claim> authClaims)
         {
             var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

@@ -11,7 +11,10 @@ namespace ThinkEMR_Care.Core.Services.Interface
 {
     public interface IUserManagement
     {
-        Task<ApiResponse<string>> RegisterUser(RegisterUser registerUser,string Role);
+        Task <int> RegisterUser(RegisterUser registerUser,string Role);
         Task<ApiResponse<string>> LoginUser(LoginModel loginModel);
+
+        Task<int> SendNotificationToUser(string Touser, string FromUser);
+
     }
 }

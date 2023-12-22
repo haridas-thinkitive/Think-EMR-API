@@ -32,5 +32,7 @@ namespace ThinkEMR_Care.API.Controllers
             var result = await _dashboardDetails.DashboardDetails();
             return Ok(result);
         }
+
+
     }
 }
